@@ -1,12 +1,12 @@
-import Bill from 'containers/bill'
+import Cart from 'containers/cart'
 import OrderCenter from 'containers/order'
 import Panel from './panel.sc'
 import React from 'react'
 
 const App = () => (
   <Panel>
-    <Bill/>
     <OrderCenter/>
+    <Cart/>
   </Panel>
 )
 

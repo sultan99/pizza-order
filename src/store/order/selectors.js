@@ -57,3 +57,8 @@ export const selectTotal = createSelector(
     total => Math.trunc(total * 100) / 100
   )
 )
+
+export const selectIsLoading = createSelector(
+  selectState,
+  R.prop(`isLoading`)
+)

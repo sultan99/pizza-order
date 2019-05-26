@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 import {CHECK_TOPPING, PIZZA_RECEIVED} from './actions'
 import {SET_PIZZA_SIZE, SET_PIZZA_QUANTITY} from './actions'
-import {merge} from 'ramda'
 import {updateState} from 'common/reducer-fns'
 
 const initialState = {
@@ -10,7 +9,7 @@ const initialState = {
   maxToppings: 0,
   basePrice: 0,
   toppings: [],
-  isLoading: false,
+  isLoading: true,
 }
 
 function orderReducer(state = initialState, action) {
@@ -36,7 +35,11 @@ function orderReducer(state = initialState, action) {
       return canAddMore ? setState(state) : state
     }
     case PIZZA_RECEIVED: {
-      return merge(state, action.payload)
+      return R.mergeAll([
+        state,
+        {isLoading: false},
+        action.payload
+      ])
     }
     case SET_PIZZA_QUANTITY: {
       const lessThanOne = action.increment < 0 && state.quantity === 1
@@ -48,7 +51,12 @@ function orderReducer(state = initialState, action) {
       return !lessThanOne ? setState(state) : state
     }
     case SET_PIZZA_SIZE: {
-      return updateState(`pizzaSize`, action.value, state)
+      const update = R.compose(
+        updateState(`pizzaSize`, action.value),
+        updateState(`isLoading`, true),
+        updateState(`quantity`, 1)
+      )
+      return update(state)
     }
     default: return state
   }
