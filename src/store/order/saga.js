@@ -1,12 +1,37 @@
-import {DUMMY_ACTION} from './actions'
-import {takeEvery} from 'redux-saga/effects'
+import * as R from 'ramda'
+import {SET_PIZZA_SIZE} from './actions'
+import {fetchData, asyncPipe} from 'common/side-effects'
+import {makeCacheable} from 'common/utils'
+import {pizzaSizes} from './graphql'
+import {put, takeEvery} from 'redux-saga/effects'
+import {updatePizza} from './actions'
 
-function* startUp() {
-  // some functions with side effects
+const flat = item => R.merge(
+  item.topping,
+  {selected: item.defaultSelected}
+)
+
+const reshape = R.pipe(
+  R.path([`data`, `pizzaSizeByName`]),
+  R.omit([`name`]),
+  R.over(R.lensProp(`toppings`), R.map(flat))
+)
+
+const cache = makeCacheable(
+  asyncPipe(
+    pizzaSizes,
+    fetchData,
+    reshape
+  )
+)
+
+function* fetchPizza({value}) {
+  const payload = yield cache(value)
+  yield put(updatePizza(payload))
 }
 
 function* orderSaga() {
-  yield takeEvery(DUMMY_ACTION, startUp)
+  yield takeEvery(SET_PIZZA_SIZE, fetchPizza)
 }
 
 export default orderSaga

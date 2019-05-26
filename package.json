@@ -14,7 +14,7 @@
     "url": "git@github.com:sultan99/pizza-order.git"
   },
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
