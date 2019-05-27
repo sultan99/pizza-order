@@ -47,7 +47,7 @@ function OrderCenter(props) {
             <input
               checked={topping.selected}
               name="toppings"
-              onChange={({target}) => props.checkTopping(target.value)}
+              onChange={({target}) => props.addTopping(target.value)}
               type="checkbox"
               value={topping.name}
             />

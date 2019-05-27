@@ -2,9 +2,7 @@ import * as R from 'ramda'
 import {ADD_ORDER, REMOVE_ORDER} from './actions'
 import {guid} from 'common/utils'
 
-const initialState = []
-
-function cartReducer(state = initialState, action) {
+function cartReducer(state = [], action) {
   switch (action.type) {
     case ADD_ORDER: {
       const newItem = R.merge(

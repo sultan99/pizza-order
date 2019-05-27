@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import {createSelector} from 'reselect'
+import {round} from 'common/utils'
 
 export const selectState = R.prop(`cart`)
 
@@ -8,6 +9,6 @@ export const selectTotal = createSelector(
   R.pipe(
     R.map(R.prop(`subtotal`)),
     R.sum,
-    total => Math.trunc(total * 100) / 100
+    round
   )
 )

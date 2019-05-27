@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 const pizzaNames = [
-  [`Pizza dough lovers`, `For lovers of minimalism and diet`],
+  [`Pizza dough lovers`, `Our pizza a play on words as the Sicilian Mafia is called “Cosa Nostra”`],
   [`Ave Cesare`, `Hail, Caesar! (ancient Roman salute to the emperor)`],
   [`El rodillo de Polichinela`, `The rolling pin of Pulcinella (Italian classical character)`],
   [`Il Colosseo`, `The Colosseum (an amphitheater in the center of the city of Rome)`],

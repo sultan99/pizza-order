@@ -1,20 +1,20 @@
 import * as R from 'ramda'
-import {CHECK_TOPPING, PIZZA_RECEIVED} from './actions'
+import {ADD_TOPPING, PIZZA_RECEIVED} from './actions'
 import {SET_PIZZA_SIZE, SET_PIZZA_QUANTITY} from './actions'
-import {updateState} from 'common/reducer-fns'
+import {set} from 'common/reducer-fns'
 
 const initialState = {
+  basePrice: 0,
+  isLoading: true,
+  maxToppings: 0,
   pizzaSize: `SMALL`,
   quantity: 1,
-  maxToppings: 0,
-  basePrice: 0,
   toppings: [],
-  isLoading: true,
 }
 
 function orderReducer(state = initialState, action) {
   switch (action.type) {
-    case CHECK_TOPPING: {
+    case ADD_TOPPING: {
       const isLimited = R.pipe(
         R.prop(`toppings`),
         R.filter(R.propEq(`selected`, true)),
@@ -27,12 +27,12 @@ function orderReducer(state = initialState, action) {
       )
       const {selected} = state.toppings[index]
       const canAddMore = state.maxToppings === null || selected || !isLimited(state)
-      const setState = R.over(
+      const update = R.over(
         R.lensPath([`toppings`, index, `selected`]),
         R.not
       )
 
-      return canAddMore ? setState(state) : state
+      return canAddMore ? update(state) : state
     }
     case PIZZA_RECEIVED: {
       return R.mergeAll([
@@ -43,19 +43,20 @@ function orderReducer(state = initialState, action) {
     }
     case SET_PIZZA_QUANTITY: {
       const lessThanOne = action.increment < 0 && state.quantity === 1
-      const setState = R.over(
+      const update = R.over(
         R.lensProp(`quantity`),
         R.add(action.increment)
       )
 
-      return !lessThanOne ? setState(state) : state
+      return !lessThanOne ? update(state) : state
     }
     case SET_PIZZA_SIZE: {
       const update = R.compose(
-        updateState(`pizzaSize`, action.value),
-        updateState(`isLoading`, true),
-        updateState(`quantity`, 1)
+        set(`pizzaSize`, action.value),
+        set(`isLoading`, true),
+        set(`quantity`, 1)
       )
+
       return update(state)
     }
     default: return state

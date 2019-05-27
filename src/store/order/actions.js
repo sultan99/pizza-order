@@ -1,10 +1,10 @@
-export const CHECK_TOPPING = `ORDER/CHECK_TOPPING`
+export const ADD_TOPPING = `ORDER/ADD_TOPPING`
 export const PIZZA_RECEIVED = `ORDER/PIZZA_RECEIVED`
 export const SET_PIZZA_QUANTITY = `ORDER/SET_PIZZA_QUANTITY`
 export const SET_PIZZA_SIZE = `ORDER/SET_PIZZA_SIZE`
 
-export const checkTopping = name => ({
-  type: CHECK_TOPPING,
+export const addTopping = name => ({
+  type: ADD_TOPPING,
   name
 })
 

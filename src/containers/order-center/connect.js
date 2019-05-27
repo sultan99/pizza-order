@@ -1,5 +1,5 @@
 import {addOrder} from 'store/cart/actions'
-import {checkTopping, setPizzaSize} from 'store/order/actions'
+import {addTopping, setPizzaSize} from 'store/order/actions'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import {selectPizzaName, selectPizzaSize} from 'store/order/selectors'
@@ -19,7 +19,7 @@ const props = createStructuredSelector({
 
 const actions = {
   addOrder,
-  checkTopping,
+  addTopping,
   setPizzaQuantity,
   setPizzaSize,
 }

@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import {SET_PIZZA_SIZE} from './actions'
 import {fetchData, asyncPipe} from 'common/side-effects'
 import {makeCacheable} from 'common/utils'
-import {pizzaSizes} from './graphql'
+import {pizzaByName} from './graphql'
 import {put, takeEvery} from 'redux-saga/effects'
 import {updatePizza} from './actions'
 
@@ -19,7 +19,7 @@ const reshape = R.pipe(
 
 const cache = makeCacheable(
   asyncPipe(
-    pizzaSizes,
+    pizzaByName,
     fetchData,
     reshape
   )

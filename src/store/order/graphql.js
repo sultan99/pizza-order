@@ -1,4 +1,4 @@
-export const pizzaSizes = size => `
+export const pizzaByName = size => `
   pizzaSizeByName(name: ${size}) {
     name
     maxToppings

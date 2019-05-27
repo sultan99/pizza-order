@@ -6,6 +6,7 @@ const Panel = styled.div`
   height: 100vh;
   margin: auto;
   max-width: 1440px;
+  position: relative;
 `
 
 export default Panel
