@@ -6,11 +6,19 @@ const lens = R.ifElse(
   R.lensPath
 )
 
-const setState = (path, value, state) => (
+const plainShape = (shape, object) => (
+  R.mapObjIndexed(
+    fn => R.is(Array, fn) ? R.pipe(...fn)(object) : fn(object),
+    shape
+  )
+)
+
+const plainSet = (path, value, state) => (
   R.set(
     lens(path),
     value, state
   )
 )
 
-export const set = R.curry(setState)
+export const shape = R.curry(plainShape)
+export const set = R.curry(plainSet)

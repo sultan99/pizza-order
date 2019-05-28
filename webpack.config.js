@@ -1,8 +1,9 @@
+const R = require(`ramda`)
 const BundleAnalyzerPlugin = require(`webpack-bundle-analyzer`).BundleAnalyzerPlugin
 const CopyPlugin = require(`copy-webpack-plugin`)
 const DynamicCdnWebpackPlugin = require(`dynamic-cdn-webpack-plugin`)
 const HtmlWebPackPlugin = require(`html-webpack-plugin`)
-const R = require(`ramda`)
+const SpritePlugin = require(`svg-sprite-loader/plugin`)
 const cdnResolvers = require(`./cdn-resolvers`)
 const path = require(`path`)
 
@@ -15,6 +16,21 @@ const common = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [`babel-loader`],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        exclude: /node_modules/,
+        use: [`file-loader`],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: `svg-sprite-loader`,
+            options: {extract: true}
+          },
+          `svgo-loader`,
+        ]
       },
     ]
   },
@@ -31,6 +47,7 @@ const common = {
     }
   },
   plugins: [
+    new SpritePlugin(),
     new HtmlWebPackPlugin({
       template: rootPath(`./src/index.html`)
     }),
