@@ -1,26 +1,48 @@
+import AppLogo from 'components/app-logo'
+import Button from 'components/button/round'
+import Pane from './pane.sc'
 import React from 'react'
+import Section from './section.sc'
+import Text from 'components/text'
+import Title from 'components/title'
 import connect from './connect'
 
 const toDetails = onRemove => (order, key) => (
-  <div key={key}>
-    <h2>{order.pizzaName} x {order.quantity}</h2>
-    <p>{order.toppings.join(`, `)}</p>
-    <div>{order.subtotal}</div>
+  <Section key={key}>
     <div>
-      <button onClick={() => onRemove(order.id)}>
-        Remove
-      </button>
+      <Button icon="trash"onClick={() => onRemove(order.id)}>
+        x{order.quantity}
+      </Button>
     </div>
-  </div>
+    <div>
+      <Title size="32px">{order.pizzaName} </Title>
+      <Text size="28px">{order.toppings.join(`, `)}</Text>
+      <Text size="25px" color="#555555">
+        subtotal: ${order.subtotal}
+      </Text>
+    </div>
+  </Section>
 )
 
 function Cart(props) {
-  if (!props.orders.length) return null
   return (
-    <div>
+    <Pane visible={!!props.orders.length}>
+      <Section >
+        <AppLogo/>
+        <Title size="38px">
+          Your Order
+        </Title>
+      </Section>
       {props.orders.map(toDetails(props.removeOrder))}
-      <p>Total: ${props.total}</p>
-    </div>
+      <Section >
+        <Title size="24px">
+          Total
+        </Title>
+        <Title size="24px">
+          ${props.total}
+        </Title>
+      </Section>
+    </Pane>
   )
 }
 

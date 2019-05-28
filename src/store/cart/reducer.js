@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import {ADD_ORDER, REMOVE_ORDER} from './actions'
-import {guid} from 'common/utils'
+import {guid} from 'common/side-effects'
 
 function cartReducer(state = [], action) {
   switch (action.type) {
