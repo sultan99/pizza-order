@@ -8,6 +8,8 @@ const Text = styled.span`
   padding: 0 4px;
   user-select: none;
   vertical-align: top;
+  text-align: center;
+  min-width: 20px;
 `
 
 export default Text
