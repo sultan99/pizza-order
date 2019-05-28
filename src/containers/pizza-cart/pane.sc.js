@@ -9,11 +9,11 @@ const Pane = styled.div`
   height: 100%;
   left: ${ifProp(`visible`, `0`, `-600px`)};
   overflow-y: auto;
+  padding: 50px 40px;
   position: absolute;
   top: 0;
   transition: left 0.3s linear;
   width: 100%;
-  padding: 50px 40px;
 
   > ${Section} + ${Section} {
     margin-top: 65px;

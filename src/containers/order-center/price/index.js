@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import Button from 'components/button'
-import Caption from 'components/caption'
+import Caption from '../caption.sc'
 import IncButton from 'components/button/increment'
 import Price from 'components/price'
 import React from 'react'
@@ -15,7 +15,7 @@ const placeOrder = props => () => {
     subtotal: props.total,
     toppings: R.pluck(`name`, props.selectedToppings),
   }
-  props.addOrder(orderDetails)
+  props.placeOrder(orderDetails)
   props.setPizzaSize(`SMALL`)
 }
 

@@ -1,4 +1,4 @@
-import Caption from 'components/caption'
+import Caption from '../caption.sc'
 import Checkbox from 'components/checkbox'
 import CheckboxGroup from 'components/checkbox/group'
 import React from 'react'
@@ -16,9 +16,9 @@ function makeToppings({toppings, addTopping}) {
       checked={topping.selected}
       name="toppings"
       onChange={handleChange}
+      text={topping.name}
       type="checkbox"
       value={topping.name}
-      text={topping.name}
     />
   )
 }

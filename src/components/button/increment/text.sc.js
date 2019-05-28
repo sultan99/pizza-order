@@ -5,11 +5,10 @@ const Text = styled.span`
   display: inline-block;
   font-size: 24px;
   line-height: 50px;
-  padding: 0 4px;
+  min-width: 20px;
+  text-align: center;
   user-select: none;
   vertical-align: top;
-  text-align: center;
-  min-width: 20px;
 `
 
 export default Text

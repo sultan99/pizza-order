@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import {createSelector} from 'reselect'
+import {random} from 'common/side-effects'
 import {round} from 'common/utils'
 import pizzaNames from './pizza-names'
 
@@ -42,14 +43,8 @@ export const selectSelectedToppings = createSelector(
 )
 
 export const selectPizzaName = createSelector(
-  selectToppings,
-  R.pipe(
-    R.addIndex(R.map)(
-      (item, index) => item.selected ? index : 0
-    ),
-    R.sum,
-    index => pizzaNames[index]
-  )
+  selectPizzaSize,
+  () => pizzaNames[random(0, 26)]
 )
 
 export const selectToppingPrice = createSelector(

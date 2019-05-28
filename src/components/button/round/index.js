@@ -4,13 +4,12 @@ import iconsList from 'components/icon/svg'
 const hover = src => css`
   &:hover {
     background-color: #ff552f;
-    color: rgba(0,0,0,0);
     background-image: url(${iconsList[src].url});
     background-position: center;
     background-repeat: no-repeat;
     background-size: 20px;
     box-shadow: 0px 2px 2px 2px rgba(0,0,0,0.1);
-    margin-top: -2px;
+    color: rgba(0, 0, 0, 0);
   }
 `
 

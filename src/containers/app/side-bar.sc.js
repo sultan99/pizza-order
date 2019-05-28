@@ -6,8 +6,8 @@ const SideBar = styled.div`
   background-size: cover;
   height: 100%;
   min-width: 400px;
-  width: 38%;
   position: relative;
+  width: 38%;
 `
 
 export default SideBar

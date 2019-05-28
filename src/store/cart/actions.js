@@ -1,8 +1,8 @@
-export const ADD_ORDER = `CART/ADD_ORDER`
+export const PLACE_ORDER = `CART/PLACE_ORDER`
 export const REMOVE_ORDER = `CART/REMOVE_ORDER`
 
-export const addOrder = payload => ({
-  type: ADD_ORDER,
+export const placeOrder = payload => ({
+  type: PLACE_ORDER,
   payload
 })
 

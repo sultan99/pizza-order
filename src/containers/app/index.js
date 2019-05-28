@@ -4,15 +4,11 @@ import PageLayout from './page-layout.sc'
 import PizzaCart from 'containers/pizza-cart'
 import React from 'react'
 import SideBar from './side-bar.sc'
-import {random} from 'common/side-effects'
-
-const src = () => (
-  `./public/images/photo-0${random(1, 2)}.jpg`
-)
+import randomImages from 'components/images'
 
 const App = () => (
   <PageLayout>
-    <SideBar image={src()}>
+    <SideBar image={randomImages()}>
       <PizzaCart/>
     </SideBar>
     <Content>

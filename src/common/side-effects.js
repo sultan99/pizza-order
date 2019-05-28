@@ -5,6 +5,7 @@ const API_URL = `https://core-graphql.dev.waldo.photos/pizza`
 export const asyncPipe = (...fns) => fns.reduce(
   (prev, next) => (...args) => {
     const result = prev(...args)
+
     return R.is(Promise, result)
       ? result.then(x => next(x))
       : Promise.resolve(next(result))

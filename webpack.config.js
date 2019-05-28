@@ -20,7 +20,12 @@ const common = {
       {
         test: /\.(png|jpe?g|gif)$/,
         exclude: /node_modules/,
-        use: [`file-loader`],
+        use: [{
+          loader: `file-loader`,
+          options: {
+            name: `[hash].[ext]`,
+          }
+        }],
       },
       {
         test: /\.svg$/,

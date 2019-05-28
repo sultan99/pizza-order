@@ -1,4 +1,4 @@
-import Caption from 'components/caption'
+import Caption from '../caption.sc'
 import Radio from 'components/radio'
 import RadioGroup from 'components/radio/group'
 import React from 'react'

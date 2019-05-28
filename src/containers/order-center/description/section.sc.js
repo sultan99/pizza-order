@@ -4,10 +4,10 @@ const Section = styled.div`
   margin-bottom: 60px;
 
   > p {
+    height: 100px;
     margin-top: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 100px;
   }
 `
 
