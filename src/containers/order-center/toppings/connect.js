@@ -1,14 +1,14 @@
+import {addTopping} from 'store/order/actions'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
-import {selectIsLoading} from 'store/order/selectors'
-import {setPizzaSize} from 'store/order/actions'
+import {selectToppings} from 'store/order/selectors'
 
 const props = createStructuredSelector({
-  isLoading: selectIsLoading,
+  toppings: selectToppings,
 })
 
 const actions = {
-  setPizzaSize,
+  addTopping,
 }
 
 export default connect(props, actions)
