@@ -27,7 +27,7 @@ function makeRadio({pizzaSize, setPizzaSize}) {
   )
 }
 
-function PizzaDetails(props) {
+function PizzaSizes(props) {
   const radio = makeRadio(props)
   return (
     <Section>
@@ -41,4 +41,4 @@ function PizzaDetails(props) {
   )
 }
 
-export default connect(PizzaDetails)
+export default connect(PizzaSizes)

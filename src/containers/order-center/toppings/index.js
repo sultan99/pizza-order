@@ -17,13 +17,12 @@ function makeToppings({toppings, addTopping}) {
       name="toppings"
       onChange={handleChange}
       text={topping.name}
-      type="checkbox"
       value={topping.name}
     />
   )
 }
 
-const PizzaDetails = props => (
+const PizzaToppings = props => (
   <Section style={{marginTop: `50px`}}>
     <Caption>TOPPINGS</Caption>
     <CheckboxGroup>
@@ -32,4 +31,4 @@ const PizzaDetails = props => (
   </Section>
 )
 
-export default connect(PizzaDetails)
+export default connect(PizzaToppings)

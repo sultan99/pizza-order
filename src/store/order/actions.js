@@ -8,6 +8,11 @@ export const addTopping = name => ({
   name
 })
 
+export const pizzaReceived = payload => ({
+  type: PIZZA_RECEIVED,
+  payload
+})
+
 export const setPizzaQuantity = increment => ({
   type: SET_PIZZA_QUANTITY,
   increment
@@ -16,9 +21,4 @@ export const setPizzaQuantity = increment => ({
 export const setPizzaSize = value => ({
   type: SET_PIZZA_SIZE,
   value
-})
-
-export const updatePizza = payload => ({
-  type: PIZZA_RECEIVED,
-  payload
 })

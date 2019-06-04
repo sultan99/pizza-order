@@ -2,12 +2,12 @@ import * as R from 'ramda'
 import {createSelector} from 'reselect'
 import {round} from 'common/utils'
 
-export const selectState = R.prop(`cart`)
+export const selectCart = R.prop(`cart`)
 
 export const selectTotal = createSelector(
-  selectState,
+  selectCart,
   R.pipe(
-    R.map(R.prop(`subtotal`)),
+    R.pluck(`subtotal`),
     R.sum,
     round
   )

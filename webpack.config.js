@@ -85,10 +85,12 @@ const production = {
   ],
 }
 
+const makeConfigs = R.mergeDeepWith(R.concat, common)
+
 const config = (
   process.env.NODE_ENV === `production`
-    ? R.mergeDeepWith(R.concat, common, production)
-    : R.mergeDeepWith(R.concat, common, develop)
+    ? makeConfigs(production)
+    : makeConfigs(develop)
 )
 
 module.exports = config

@@ -4,36 +4,30 @@ import {random} from 'common/side-effects'
 import {round} from 'common/utils'
 import pizzaNames from './pizza-names'
 
-export const selectState = R.prop(`order`)
+export const selectOrder = R.prop(`order`)
 
 export const selectIsLoading = createSelector(
-  selectState,
+  selectOrder,
   R.prop(`isLoading`)
 )
 
 export const selectPizzaSize = createSelector(
-  selectState,
+  selectOrder,
   R.prop(`pizzaSize`)
 )
 
 export const selectQuantity = createSelector(
-  selectState,
+  selectOrder,
   R.prop(`quantity`)
 )
 
 export const selectBasePrice = createSelector(
-  selectState,
+  selectOrder,
   R.prop(`basePrice`)
 )
 
-export const selectPrice = createSelector(
-  selectBasePrice,
-  selectQuantity,
-  R.multiply
-)
-
 export const selectToppings = createSelector(
-  selectState,
+  selectOrder,
   R.prop(`toppings`)
 )
 
@@ -50,16 +44,22 @@ export const selectPizzaName = createSelector(
 export const selectToppingPrice = createSelector(
   selectSelectedToppings,
   R.pipe(
-    R.map(R.prop(`price`)),
+    R.pluck(`price`),
     R.sum
   )
 )
 
+export const selectPrice = createSelector(
+  selectBasePrice,
+  selectToppingPrice,
+  R.add
+)
+
 export const selectTotal = createSelector(
   selectPrice,
-  selectToppingPrice,
+  selectQuantity,
   R.pipe(
-    R.add,
+    R.multiply,
     round
   )
 )

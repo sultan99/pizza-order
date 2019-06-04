@@ -1,15 +1,10 @@
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
-import {removeOrder} from 'store/cart/actions'
-import {selectState, selectTotal} from 'store/cart/selectors'
+import {selectCart, selectTotal} from 'store/cart/selectors'
 
 const props = createStructuredSelector({
-  orders: selectState,
+  orders: selectCart,
   total: selectTotal,
 })
 
-const actions = {
-  removeOrder
-}
-
-export default connect(props, actions)
+export default connect(props)

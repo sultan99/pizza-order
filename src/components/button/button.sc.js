@@ -1,4 +1,19 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
+import {ifProp} from 'common/style'
+
+const noText = css`
+  padding: 0;
+  height: 40px;
+  width: 40px;
+`
+
+const withText = css`
+  font-family: 'Rationale', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  height: 70px;
+  padding: 0 50px;
+`
 
 const Button = styled.button`
   background-color: #ff5c38;
@@ -6,22 +21,17 @@ const Button = styled.button`
   border: 0;
   color: white;
   cursor: pointer;
-  font-family: 'Rationale', sans-serif;
-  font-size: 30px;
-  font-weight: 400;
-  height: 70px;
-  padding: 0 50px;
   user-select: none;
+
+  ${ifProp(`noText`, noText, withText)}
 
   > svg {
     fill: white;
     height: 20px;
   }
-
   > span {
     vertical-align: middle;
   }
-
   > svg + span {
     margin-left: 8px;
   }

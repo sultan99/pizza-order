@@ -4,7 +4,7 @@ import {fetchData, asyncPipe} from 'common/side-effects'
 import {makeCacheable} from 'common/utils'
 import {pizzaByName} from './graphql'
 import {put, takeEvery} from 'redux-saga/effects'
-import {updatePizza} from './actions'
+import {pizzaReceived} from './actions'
 
 const flat = item => R.merge(
   item.topping,
@@ -27,7 +27,7 @@ const cache = makeCacheable(
 
 function* fetchPizza({value}) {
   const payload = yield cache(value)
-  yield put(updatePizza(payload))
+  yield put(pizzaReceived(payload))
 }
 
 function* orderSaga() {

@@ -3,9 +3,9 @@ import Label from './label.sc'
 import React from 'react'
 import Text from './text.sc'
 
-const Checkbox = ({text, checked, ...rest}) => (
+const Checkbox = ({checked, text, ...rest}) => (
   <Label checked={checked}>
-    <Input type="checkbox" {...rest} checked={checked}/>
+    <Input type="checkbox" checked={checked} {...rest}/>
     <Text>{text}</Text>
   </Label>
 )

@@ -15,7 +15,7 @@ const Pane = styled.div`
   transition: left 0.3s linear;
   width: 100%;
 
-  > ${Section} + ${Section} {
+  > div + div {
     margin-top: 65px;
   }
 

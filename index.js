@@ -4,7 +4,7 @@ const http = require(`http`)
 
 const app = express()
 
-app.use(express.static(`public`))
+app.use(express.static(`public`, {maxAge: `1d`}))
 
 app.use(`*`, (req, res) => {
   fs.createReadStream(`./public/index.html`).pipe(res)
