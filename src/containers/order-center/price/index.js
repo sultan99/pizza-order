@@ -16,7 +16,6 @@ const placeOrder = props => () => {
     toppings: R.pluck(`name`, props.selectedToppings),
   }
   props.placeOrder(orderDetails)
-  props.setPizzaSize(`SMALL`)
 }
 
 const PizzaPrice = props => (

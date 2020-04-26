@@ -1,6 +1,7 @@
-import {placeOrder} from 'store/cart/actions'
+import * as R from 'ramda'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
+import {placeOrder} from 'store/cart/actions'
 import {selectPizzaName} from 'store/order/selectors'
 import {selectQuantity, selectSelectedToppings} from 'store/order/selectors'
 import {selectToppings, selectTotal} from 'store/order/selectors'
@@ -14,10 +15,15 @@ const props = createStructuredSelector({
   total: selectTotal,
 })
 
-const actions = {
-  placeOrder,
-  setPizzaQuantity,
-  setPizzaSize,
-}
+const actions = dispatch => ({
+  placeOrder: payload => {
+    dispatch(placeOrder(payload))
+    dispatch(setPizzaSize(`SMALL`))
+  },
+  setPizzaQuantity: R.compose(
+    dispatch,
+    setPizzaQuantity,
+  )
+})
 
 export default connect(props, actions)

@@ -1,0 +1,7 @@
+{
+  "files.exclude": {
+    "bundle-report.html": true,
+    "node_modules": true,
+    "public/*.*": true
+  }
+}

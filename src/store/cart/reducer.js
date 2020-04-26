@@ -1,27 +1,25 @@
 import * as R from 'ramda'
-import {PLACE_ORDER, REMOVE_ORDER} from './actions'
+import {ORDER_PLACED, ORDER_REMOVED} from './actions'
+import {createReducer, on} from 'common/reducer-fns'
 import {guid} from 'common/side-effects'
 
-function cartReducer(state = [], action) {
-  switch (action.type) {
-    case PLACE_ORDER: {
-      const newItem = R.merge(
-        {id: guid()},
-        action.payload
-      )
+const initialState = []
 
-      return R.append(newItem, state)
-    }
-    case REMOVE_ORDER: {
-      const index = R.findIndex(
-        R.propEq(`id`, action.id),
-        state
-      )
+const placeOrder = orderDetails => R.append(
+  R.merge(
+    {id: guid()},
+    orderDetails
+  )
+)
 
-      return R.remove(index, 1, state)
-    }
-    default: return state
-  }
-}
+const removeOrder = ({orderId}) => R.reject(
+  R.propEq(`id`, orderId)
+)
+
+const cartReducer = createReducer(
+  initialState,
+  on(ORDER_PLACED, placeOrder),
+  on(ORDER_REMOVED, removeOrder),
+)
 
 export default cartReducer

@@ -1,7 +1,7 @@
 import * as R from 'ramda'
-import {ADD_TOPPING, PIZZA_RECEIVED} from './actions'
-import {SET_PIZZA_SIZE, SET_PIZZA_QUANTITY} from './actions'
-import {set} from 'common/reducer-fns'
+import {PIZZA_SIZE_CHANGED, PIZZA_QUANTITY_CHANGED} from './actions'
+import {TOPPING_ADDED, PIZZA_RECEIVED} from './actions'
+import {createReducer, lensFindProp, on, set} from 'common/reducer-fns'
 
 const initialState = {
   basePrice: 0,
@@ -12,55 +12,57 @@ const initialState = {
   toppings: [],
 }
 
-function orderReducer(state = initialState, action) {
-  switch (action.type) {
-    case ADD_TOPPING: {
-      const isLimited = R.pipe(
-        R.prop(`toppings`),
-        R.filter(R.propEq(`selected`, true)),
-        R.length,
-        count => count >= state.maxToppings
-      )
-      const index = R.findIndex(
-        R.propEq(`name`, action.name),
-        state.toppings
-      )
-      const {selected} = state.toppings[index]
-      const canAddMore = state.maxToppings === null || selected || !isLimited(state)
-      const update = R.over(
-        R.lensPath([`toppings`, index, `selected`]),
-        R.not
-      )
+const countSelectedToppings = R.pipe(
+  R.prop(`toppings`),
+  R.filter(R.propEq(`selected`, true)),
+  R.length,
+)
 
-      return canAddMore ? update(state) : state
-    }
-    case PIZZA_RECEIVED: {
-      return R.mergeAll([
-        state,
-        {isLoading: false},
-        action.payload
-      ])
-    }
-    case SET_PIZZA_QUANTITY: {
-      const lessThanOne = action.increment < 0 && state.quantity === 1
-      const update = R.over(
-        R.lensProp(`quantity`),
-        R.add(action.increment)
-      )
+const canAddMore = state => selected => (
+  selected ||
+  R.isNil(state.maxToppings) ||
+  countSelectedToppings(state) < state.maxToppings
+)
 
-      return !lessThanOne ? update(state) : state
-    }
-    case SET_PIZZA_SIZE: {
-      const update = R.compose(
-        set(`pizzaSize`, action.value),
-        set(`isLoading`, true),
-        set(`quantity`, 1)
-      )
+const addToppings = ({toppingName}) => state => R.over(
+  R.compose(
+    R.lensProp(`toppings`),
+    lensFindProp(`name`, toppingName),
+    R.lensProp(`selected`),
+  ),
+  R.when(
+    canAddMore(state),
+    R.not
+  ),
+  state
+)
 
-      return update(state)
-    }
-    default: return state
-  }
-}
+const receivePizza = payload => state => R.mergeAll([
+  state,
+  {isLoading: false},
+  payload
+])
+
+const setPizzaQuantity = ({increment}) => R.over(
+  R.lensProp(`quantity`),
+  R.pipe(
+    R.add(increment),
+    R.max(1)
+  )
+)
+
+const setPizzaSize = ({pizzaSize}) => R.pipe(
+  set(`pizzaSize`, pizzaSize),
+  set(`isLoading`, true),
+  set(`quantity`, 1)
+)
+
+const orderReducer = createReducer(
+  initialState,
+  on(PIZZA_QUANTITY_CHANGED, setPizzaQuantity),
+  on(PIZZA_RECEIVED, receivePizza),
+  on(PIZZA_SIZE_CHANGED, setPizzaSize),
+  on(TOPPING_ADDED, addToppings),
+)
 
 export default orderReducer

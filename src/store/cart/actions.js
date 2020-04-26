@@ -1,12 +1,12 @@
-export const PLACE_ORDER = `CART/PLACE_ORDER`
-export const REMOVE_ORDER = `CART/REMOVE_ORDER`
+export const ORDER_PLACED = `CART/ORDER_PLACED`
+export const ORDER_REMOVED = `CART/ORDER_REMOVED`
 
 export const placeOrder = payload => ({
-  type: PLACE_ORDER,
+  type: ORDER_PLACED,
   payload
 })
 
-export const removeOrder = id => ({
-  type: REMOVE_ORDER,
-  id
+export const removeOrder = orderId => ({
+  type: ORDER_REMOVED,
+  payload: {orderId}
 })
