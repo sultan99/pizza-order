@@ -1,18 +1,19 @@
+import '@/typedef'
 import Content from './content.sc'
-import OrderCenter from 'containers/order-center'
 import PageLayout from './page-layout.sc'
-import PizzaCart from 'containers/pizza-cart'
+import PizzaCraft from '@/containers/pizza-craft'
+import PizzaOrder from '@/containers/pizza-order'
 import React from 'react'
 import SideBar from './side-bar.sc'
-import randomImages from 'components/images'
+import randomImages from '@/components/images'
 
 const App = () => (
   <PageLayout>
     <SideBar image={randomImages()}>
-      <PizzaCart/>
+      <PizzaOrder/>
     </SideBar>
     <Content>
-      <OrderCenter/>
+      <PizzaCraft/>
     </Content>
   </PageLayout>
 )

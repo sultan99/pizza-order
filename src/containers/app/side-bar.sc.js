@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {prop} from 'common/style'
+import {prop} from '@/common/style'
 
 const SideBar = styled.div`
   background-image: url(${prop(`image`)});

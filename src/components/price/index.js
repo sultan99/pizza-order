@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {prop} from 'common/style'
+import {prop} from '@/common/style'
 
 const Price = styled.span`
   color: ${prop(`color`, `black`)};

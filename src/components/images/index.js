@@ -1,6 +1,6 @@
 import i01 from './photo-01.jpg'
 import i02 from './photo-02.jpg'
-import {random} from 'common/side-effects'
+import {random} from '@/common/side-effects'
 
 const imageList = [i01, i02]
 

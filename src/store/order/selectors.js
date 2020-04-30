@@ -1,65 +1,14 @@
 import * as R from 'ramda'
 import {createSelector} from 'reselect'
-import {random} from 'common/side-effects'
-import {round} from 'common/utils'
-import pizzaNames from './pizza-names'
+import {round} from '@/common/utils'
 
 export const selectOrder = R.prop(`order`)
 
-export const selectIsLoading = createSelector(
-  selectOrder,
-  R.prop(`isLoading`)
-)
-
-export const selectPizzaSize = createSelector(
-  selectOrder,
-  R.prop(`pizzaSize`)
-)
-
-export const selectQuantity = createSelector(
-  selectOrder,
-  R.prop(`quantity`)
-)
-
-export const selectBasePrice = createSelector(
-  selectOrder,
-  R.prop(`basePrice`)
-)
-
-export const selectToppings = createSelector(
-  selectOrder,
-  R.prop(`toppings`)
-)
-
-export const selectSelectedToppings = createSelector(
-  selectToppings,
-  R.filter(R.propEq(`selected`, true))
-)
-
-export const selectPizzaName = createSelector(
-  selectPizzaSize,
-  () => pizzaNames[random(0, 26)]
-)
-
-export const selectToppingPrice = createSelector(
-  selectSelectedToppings,
-  R.pipe(
-    R.pluck(`price`),
-    R.sum
-  )
-)
-
-export const selectPrice = createSelector(
-  selectBasePrice,
-  selectToppingPrice,
-  R.add
-)
-
 export const selectTotal = createSelector(
-  selectPrice,
-  selectQuantity,
+  selectOrder,
   R.pipe(
-    R.multiply,
+    R.pluck(`subtotal`),
+    R.sum,
     round
   )
 )

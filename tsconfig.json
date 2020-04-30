@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "baseUrl": "./src",
+    "checkJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "jsx": "react",
+    "module": "es6",
+    "moduleResolution": "node",
+    "outDir": "types",
+    "removeComments": false,
+    "strictNullChecks": false,
+    "target": "es2017",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "public",
+    "src/**/*.test.js"
+  ]
+}

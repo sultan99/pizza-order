@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {ifProp} from 'common/style'
+import {ifProp} from '@/common/style'
 
 const noText = css`
   padding: 0;

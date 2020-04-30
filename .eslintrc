@@ -2,6 +2,7 @@
   "env": {
     "browser": true,
     "es6": true,
+    "jest/globals": true,
     "node": true
   },
   "parser": "babel-eslint",
@@ -10,7 +11,11 @@
     "ecmaVersion": 2017,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": [
+    "jest",
+    "jsdoc",
+    "react"
+  ],
   "rules": {
     "array-bracket-spacing": ["error", "never"],
     "array-callback-return": 2,
@@ -73,7 +78,32 @@
     "spaced-comment": ["error", "always"],
     "template-curly-spacing":  ["error", "never"],
     "use-isnan": "error",
-    "valid-jsdoc": "error",
-    "valid-typeof": "error"
+    "valid-typeof": "error",
+    "jsdoc/check-alignment": 1,
+    "jsdoc/check-examples": 0,
+    "jsdoc/check-indentation": 0,
+    "jsdoc/check-param-names": 1,
+    "jsdoc/check-syntax": 1,
+    "jsdoc/check-tag-names": 1,
+    "jsdoc/check-types": 1,
+    "jsdoc/implements-on-classes": "off",
+    "jsdoc/match-description": "off",
+    "jsdoc/newline-after-description": "off",
+    "jsdoc/no-types": "off",
+    "jsdoc/no-undefined-types": 1,
+    "jsdoc/require-description": "off",
+    "jsdoc/require-description-complete-sentence": "off",
+    "jsdoc/require-example": "off",
+    "jsdoc/require-hyphen-before-param-description": 1,
+    "jsdoc/require-jsdoc": 0,
+    "jsdoc/require-param": 1,
+    "jsdoc/require-param-description": "off",
+    "jsdoc/require-param-name": 1,
+    "jsdoc/require-param-type": 1,
+    "jsdoc/require-returns": 1,
+    "jsdoc/require-returns-check": 1,
+    "jsdoc/require-returns-description": "off",
+    "jsdoc/require-returns-type": 1,
+    "jsdoc/valid-types": 1
   }
 }

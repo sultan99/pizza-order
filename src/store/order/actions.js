@@ -1,24 +1,12 @@
-export const PIZZA_QUANTITY_CHANGED = `ORDER/PIZZA_QUANTITY_CHANGED`
-export const PIZZA_RECEIVED = `ORDER/PIZZA_RECEIVED`
-export const PIZZA_SIZE_CHANGED = `ORDER/PIZZA_SIZE_CHANGED`
-export const TOPPING_ADDED = `ORDER/TOPPING_ADDED`
+export const ORDER_PLACED = `ORDER/PLACED`
+export const ORDER_REMOVED = `ORDER/REMOVED`
 
-export const addTopping = toppingName => ({
-  type: TOPPING_ADDED,
-  payload: {toppingName}
-})
-
-export const receivePizza = payload => ({
-  type: PIZZA_RECEIVED,
+export const placeOrder = payload => ({
+  type: ORDER_PLACED,
   payload
 })
 
-export const setPizzaQuantity = increment => ({
-  type: PIZZA_QUANTITY_CHANGED,
-  payload: {increment}
-})
-
-export const setPizzaSize = value => ({
-  type: PIZZA_SIZE_CHANGED,
-  payload: {pizzaSize: value}
+export const removeOrder = orderId => ({
+  type: ORDER_REMOVED,
+  payload: {orderId}
 })

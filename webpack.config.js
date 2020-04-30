@@ -44,11 +44,9 @@ const common = {
     path: rootPath(`./public`)
   },
   resolve: {
+    extensions: [`.js`],
     alias: {
-      common: rootPath(`./src/common`),
-      components: rootPath(`./src/components`),
-      containers: rootPath(`./src/containers`),
-      store: rootPath(`./src/store`),
+      '@': rootPath(`./src`),
     }
   },
   plugins: [

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {ifProp} from 'common/style'
+import {ifProp} from '@/common/style'
 
 const Label = styled.label`
   background-color: ${ifProp(`checked`, `#ffbf44`, `#f5f5f5`)};

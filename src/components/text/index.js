@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {prop} from 'common/style'
+import {prop} from '@/common/style'
 
 const Text = styled.p`
   color: ${prop(`color`, `#b7b7b7`)};

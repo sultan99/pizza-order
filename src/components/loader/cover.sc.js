@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {ifProp} from 'common/style'
+import {ifProp} from '@/common/style'
 
 const Cover = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
