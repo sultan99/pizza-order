@@ -1,5 +1,9 @@
 /* eslint-disable */
 
+/**
+ * @constant
+ * @type {string[][]}
+ */
 const pizzaNames = [
   [`Alla Napoletana`, `This pizza is created using anchovies, mozzarella and tomatoes.`],
   [`Ave Cesare`, `Hail, Caesar! (ancient Roman salute to the emperor).`],

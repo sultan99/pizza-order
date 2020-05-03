@@ -90,7 +90,7 @@
     "jsdoc/match-description": "off",
     "jsdoc/newline-after-description": "off",
     "jsdoc/no-types": "off",
-    "jsdoc/no-undefined-types": 1,
+    "jsdoc/no-undefined-types": "off",
     "jsdoc/require-description": "off",
     "jsdoc/require-description-complete-sentence": "off",
     "jsdoc/require-example": "off",

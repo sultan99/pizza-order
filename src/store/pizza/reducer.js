@@ -1,12 +1,10 @@
-import '@/typedef'
 import * as R from 'ramda'
 import {PIZZA_SIZE_CHANGED, PIZZA_QUANTITY_CHANGED} from './actions'
 import {TOPPING_ADDED, PIZZA_RECEIVED} from './actions'
 import {createReducer, lensFindProp, on, set} from '@/common/reducer-fns'
 
 /**
- * Initial state of Pizza crafting reducer
- * @const
+ * @constant
  * @type {PizzaState}
  */
 const initialState = {
@@ -19,7 +17,6 @@ const initialState = {
 }
 
 /**
- * @function
  * @type {(state: PizzaState) => number}
  */
 const countSelectedToppings = R.pipe(
@@ -39,14 +36,14 @@ const canAddMore = state => selected => (
 )
 
 /**
- * @param {PayloadToppingAdded} payload
+ * @param {ToppingPayload} toppingName
  * @returns {(state: PizzaState) => PizzaState}
  */
 const addTopping = ({toppingName}) => state => R.over(
   R.compose(
     R.lensProp(`toppings`),
     lensFindProp(`name`, toppingName),
-    R.lensProp(`selected`), 
+    R.lensProp(`selected`),
   ),
   R.when(
     canAddMore(state),
@@ -56,7 +53,7 @@ const addTopping = ({toppingName}) => state => R.over(
 )
 
 /**
- * @param {PayloadPizza} pizza
+ * @param {PizzaPayload} pizza
  * @returns {(state: PizzaState) => PizzaState}
  */
 const receivePizza = pizza => state => R.mergeAll([
@@ -66,7 +63,7 @@ const receivePizza = pizza => state => R.mergeAll([
 ])
 
 /**
- * @param {PayloadPizzaQuantityChanged} increment
+ * @param {PizzaQuantityPayload} increment
  * @returns {(state: PizzaState) => PizzaState}
  */
 const setPizzaQuantity = ({increment}) => R.over(
@@ -78,7 +75,7 @@ const setPizzaQuantity = ({increment}) => R.over(
 )
 
 /**
- * @param {PayloadPizzaSizeChanged} pizzaSize
+ * @param {PizzaSizePayload} pizzaSize
  * @returns {(state: PizzaState) => PizzaState}
  */
 const setPizzaSize = ({pizzaSize}) => R.pipe(

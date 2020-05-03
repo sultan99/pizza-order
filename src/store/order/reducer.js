@@ -1,13 +1,11 @@
-import '@/typedef'
 import * as R from 'ramda'
 import {ORDER_PLACED, ORDER_REMOVED} from './actions'
 import {createReducer, on} from '@/common/reducer-fns'
 import {guid} from '@/common/side-effects'
 
 /**
- * Initial state of Order reducer
- * @const
- * @type {OrderState[]}
+ * @constant
+ * @type {Order[]}
  */
 const initialState = []
 

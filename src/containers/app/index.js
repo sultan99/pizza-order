@@ -1,4 +1,3 @@
-import '@/typedef'
 import Content from './content.sc'
 import PageLayout from './page-layout.sc'
 import PizzaCraft from '@/containers/pizza-craft'

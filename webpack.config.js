@@ -18,6 +18,10 @@ const common = {
         use: [`babel-loader`],
       },
       {
+        test: /\.d\.ts$/,
+        loader: `ts-loader`
+      },
+      {
         test: /\.(png|jpe?g|gif)$/,
         exclude: /node_modules/,
         use: [{
@@ -84,6 +88,20 @@ const production = {
 }
 
 const makeConfigs = R.mergeDeepWith(R.concat, common)
+
+// const config = (
+//   process.env.NODE_ENV === `production`
+//     ? makeConfigs(production)
+//     : makeConfigs(develop)
+// )
+
+// const createConfig = R.ifElse(
+//   R.always(process.env.NODE_ENV === `production`),
+//   R.merge(production),
+//   R.merge(develop)
+// )
+
+// module.exports = createConfig(common)
 
 const config = (
   process.env.NODE_ENV === `production`

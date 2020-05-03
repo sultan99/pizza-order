@@ -17,7 +17,6 @@ function OrderDetails({orders, removeOrder}) {
           x{order.quantity}
         </Badge>
         <Button
-          id="btn-remove"
           icon='trash'
           onClick={onRemove(order.id)}
         />

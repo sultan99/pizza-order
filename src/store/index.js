@@ -1,13 +1,13 @@
 import {applyMiddleware, compose, createStore} from 'redux'
-import createSagaMiddleware from 'redux-saga'
 import devtools from './devtools'
 import reducers from './reducers'
-import sagas from './sagas'
+import createSideEffectMiddleware from '@/common/side-effects'
+import pizzaSideEffects from './pizza/side-effects'
 
-const sagaMiddleware = createSagaMiddleware()
+const sideEffectMiddleware = createSideEffectMiddleware(pizzaSideEffects)
 
 const middlewares = compose(
-  applyMiddleware(sagaMiddleware),
+  applyMiddleware(sideEffectMiddleware),
   devtools()
 )
 
@@ -15,7 +15,5 @@ const store = createStore(
   reducers,
   middlewares
 )
-
-sagaMiddleware.run(sagas)
 
 export default store

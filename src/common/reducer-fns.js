@@ -1,7 +1,6 @@
-import '@/typedef'
 import * as R from 'ramda'
 
- /**
+/**
  * @function
  * @type {(path: string | string[]) => () => any}
  */

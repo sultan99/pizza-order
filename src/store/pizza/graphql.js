@@ -1,7 +1,6 @@
-import '@/typedef'
-
 /**
- * @param {PizzaSize} size 
+ * @param {PizzaSize} size
+ * @returns {string}
  */
 export const pizzaByName = size => `
   pizzaSizeByName(name: ${size}) {

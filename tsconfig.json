@@ -13,13 +13,19 @@
     "outDir": "types",
     "removeComments": false,
     "strictNullChecks": false,
-    "target": "es2017",
+    "target": "es2020",
+    "types": [
+      "node",
+      "webpack",
+      "webpack-env",
+    ],
     "paths": {
       "@/*": ["./*"]
     }
   },
   "include": [
-    "src/**/*.js"
+    "src/**/*.js",
+    "src/types.d.ts"
   ],
   "exclude": [
     "node_modules",

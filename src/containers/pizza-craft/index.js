@@ -1,4 +1,3 @@
-import '@/typedef'
 import Description from './description'
 import Loader from '@/components/loader'
 import Panel from './panel.sc'
@@ -9,7 +8,7 @@ import Toppings from './toppings'
 import connect from './connect'
 import {useMount} from '@/common/hooks'
 
-/** 
+/**
  * @typedef PizzaCraftProps
  * @type {object}
  * @property {boolean} isLoading

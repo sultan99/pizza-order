@@ -39,3 +39,20 @@ export function random(min, max) {
 
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
+
+export const on = (actionType, resolver) => action => (
+  action.type === actionType ? resolver : () => {}
+)
+
+export const createSideEffects = (...fns) => fns
+
+const createSideEffectMiddleware = effects => state => next => action => {
+  if (typeof next !== `function`) {
+    return state
+  }
+  const st = next(action)
+  effects.map(fn => fn(action)(st))
+  return st
+}
+
+export default createSideEffectMiddleware
