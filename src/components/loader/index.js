@@ -2,13 +2,8 @@ import Pane from './pane.sc'
 import Cover from './cover.sc'
 import React from 'react'
 
-/** 
- * @typedef {object} LoaderProps
- * @property {boolean} loading
- * @property {import('react').ReactNode} children
- *
- * @component
- * @param {LoaderProps} props
+/**
+ * @type {import('./types').Loader}
  */
 const Loader = ({loading, children}) => (
   <Pane>

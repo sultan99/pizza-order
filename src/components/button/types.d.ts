@@ -1,8 +1,7 @@
-import { FunctionComponent, MouseEvent } from 'react'
+import {FunctionComponent} from 'react'
 
 type Props = {
   icon: string
-  onClick: (event?: MouseEvent) => void
 }
 
-export type SexyButton = FunctionComponent<Props>
+export type SexyButtonType = FunctionComponent<Props>

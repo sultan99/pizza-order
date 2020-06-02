@@ -15,6 +15,15 @@ const withText = css`
   padding: 0 50px;
 `
 
+/**
+ * @typedef {import('react').FC} FC
+ * @typedef {object} ButtonProps
+ * @property {boolean} hasText
+ */
+
+/**
+ * @typedef {FC.<ButtonProps>}
+ */
 const Button = styled.button`
   background-color: #ff5c38;
   border-radius: 35px;
@@ -23,7 +32,7 @@ const Button = styled.button`
   cursor: pointer;
   user-select: none;
 
-  ${ifProp(`noText`, noText, withText)}
+  ${ifProp(`hasText`, noText, withText)}
 
   > svg {
     fill: white;

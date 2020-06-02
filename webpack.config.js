@@ -7,8 +7,10 @@ const SpritePlugin = require(`svg-sprite-loader/plugin`)
 const cdnResolvers = require(`./cdn-resolvers`)
 const path = require(`path`)
 
+/** @type {(dir: string) => string} */
 const rootPath = dir => path.resolve(__dirname, dir)
 
+/** @type {WebpackConfig} */
 const common = {
   module: {
     rules: [
@@ -16,10 +18,6 @@ const common = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [`babel-loader`],
-      },
-      {
-        test: /\.d\.ts$/,
-        loader: `ts-loader`
       },
       {
         test: /\.(png|jpe?g|gif)$/,
@@ -44,7 +42,7 @@ const common = {
     ]
   },
   output: {
-    filename: `bundle.js`,
+    filename: `[hash].bundle.js`,
     path: rootPath(`./public`)
   },
   resolve: {
@@ -61,18 +59,22 @@ const common = {
   ],
 }
 
+/** @type {WebpackConfig} */
 const develop = {
   mode: `development`,
   devServer: {
     historyApiFallback: true
   },
   plugins: [
-    new CopyPlugin([{
-      from: rootPath(`./public`)
-    }]),
+    new CopyPlugin({
+      patterns: [
+        {from: rootPath(`./public`)}
+      ],
+    }),
   ],
 }
 
+/** @type {WebpackConfig} */
 const production = {
   mode: `production`,
   plugins: [
@@ -87,26 +89,17 @@ const production = {
   ],
 }
 
-const makeConfigs = R.mergeDeepWith(R.concat, common)
-
-// const config = (
-//   process.env.NODE_ENV === `production`
-//     ? makeConfigs(production)
-//     : makeConfigs(develop)
-// )
-
-// const createConfig = R.ifElse(
-//   R.always(process.env.NODE_ENV === `production`),
-//   R.merge(production),
-//   R.merge(develop)
-// )
-
-// module.exports = createConfig(common)
-
-const config = (
-  process.env.NODE_ENV === `production`
-    ? makeConfigs(production)
-    : makeConfigs(develop)
+/** @type {(common: WebpackConfig) => WebpackConfig} */
+const createConfig = R.ifElse(
+  R.always(process.env.NODE_ENV === `production`),
+  R.mergeDeepWith(R.concat, production),
+  R.mergeDeepWith(R.concat, develop)
 )
 
-module.exports = config
+module.exports = createConfig(common)
+
+/**
+ * @typedef {import('webpack').Configuration} Configuration
+ * @typedef {import('webpack-dev-server').Configuration} DevServerConfig
+ * @typedef {Configuration | DevServerConfig} WebpackConfig
+ */

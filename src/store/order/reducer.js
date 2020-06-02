@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import {ORDER_PLACED, ORDER_REMOVED} from './actions'
-import {createReducer, on} from '@/common/reducer-fns'
+import {createReducer, on} from '@/store/reducer-fns'
 import {guid} from '@/common/side-effects'
 
 /**
@@ -15,7 +15,7 @@ const placeOrder = orderDetails => R.append(
     orderDetails
   )
 )
-
+/** @type {Reducer} */
 const removeOrder = ({orderId}) => R.reject(
   R.propEq(`id`, orderId)
 )

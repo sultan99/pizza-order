@@ -7,18 +7,16 @@ import Text from '@/components/text'
 import Title from '@/components/title'
 import connect from './connect'
 
-function OrderDetails({orders, removeOrder}) {
-  const onRemove = orderId => () => removeOrder(orderId)
-
-  return orders.map((order, key) =>
+const OrderDetails = ({orders, removeOrder}) => (
+  orders.map((order, key) =>
     <Section key={key}>
       <div>
         <Badge>
-          x{order.quantity}
+            x{order.quantity}
         </Badge>
         <Button
           icon='trash'
-          onClick={onRemove(order.id)}
+          onClick={() => removeOrder(order.id)}
         />
       </div>
       <div>
@@ -29,11 +27,11 @@ function OrderDetails({orders, removeOrder}) {
           {order.toppings.join(`, `)}
         </Text>
         <Price size="26px" color="#555555">
-          subtotal: ${order.subtotal}
+            subtotal: ${order.subtotal}
         </Price>
       </div>
     </Section>
   )
-}
+)
 
 export default connect(OrderDetails)

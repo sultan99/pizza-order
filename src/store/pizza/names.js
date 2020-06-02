@@ -1,10 +1,12 @@
-/* eslint-disable */
+import * as R from 'ramda'
+import {random} from '@/common/side-effects'
 
+/* eslint-disable max-len */
 /**
  * @constant
  * @type {string[][]}
  */
-const pizzaNames = [
+const names = [
   [`Alla Napoletana`, `This pizza is created using anchovies, mozzarella and tomatoes.`],
   [`Ave Cesare`, `Hail, Caesar! (ancient Roman salute to the emperor).`],
   [`Cosa Nostra`, `Our pizza a play on words as the Sicilian Mafia is called “Cosa Nostra”.`],
@@ -33,5 +35,16 @@ const pizzaNames = [
   [`Sfincione`, `This is a thick sheet pizza that is made in Sicily and uses anchovies (often anchovy paste), caciocavallo (or another local cheese), breadcrumbs and tomato sauce.`],
   [`Sicilian Pizzas`, `These pizzas can be made from a wide range of toppings including peas, hard-boiled eggs, seafood and green olives.`],
 ]
+/* eslint-enable max-len */
 
-export default pizzaNames
+/**
+ * @param {'name' | 'description'} value
+ * @returns {string}
+ */
+const randomPizza = R.ifElse(
+  R.equals(`name`),
+  () => () => R.head(names[random(0, names.length - 1)]),
+  () => () => R.last(names[random(0, names.length - 1)]),
+)
+
+export default randomPizza

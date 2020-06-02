@@ -1,23 +1,31 @@
-import {asyncPipe} from '../side-effects'
-
-function* genId() {
-  for (const i = 1; true; i ++) {
-    yield i
-  }
-}
+import {asyncPipe} from '../api-effects'
 
 const addOne = n => new Promise(resolve =>
   setTimeout(() => resolve(n + 1))
 )
+const fail = () => new Promise(reject =>
+  setTimeout(() => reject(`No way!`), 100)
+)
 
 describe(`common/side-effects`, () => {
-  it(`should pipe async function and generators`, async() => {
-    const time = await asyncPipe(
-      genId,
+  it(``, async () => {
+    const test = asyncPipe(
       addOne,
       seconds => `00:0${seconds}`
     )
-
-    expect(time(1)).toBe(`00:02`)
+    const result = await test(1)
+    expect(result).toBe(`00:02`)
+  })
+  it(``, async () => {
+    const test = asyncPipe(
+      fail,
+      seconds => `00:0${seconds}`
+    )
+    try {
+      await test(1)
+    }
+    catch (err) {
+      expect(err).toBe(`No way!`)
+    }
   })
 })

@@ -6,23 +6,20 @@ yarn.lock merge=ours
 *.html text eol=lf
 *.js text eol=lf
 *.json text eol=lf
+*.md text eol=lf
 *.po text eol=lf
 *.svg text eol=lf
+*.ts text eol=lf
 *.txt text eol=lf
 
-# git config
+# misc config
+.babelrc text eol=lf
+.editorconfig text eol=lf
+.eslintrc eol=lf
 .gitattributes text eol=lf
 .gitconfig text eol=lf
 .gitignore text eol=lf
 
-# misc config
-.editorconfig text eol=lf
-.eslintrc eol=lf
-.linguirc eol=lf
-.yaml text eol=lf
-*.yml text eol=lf
-
 # Documentation
-*.md text eol=lf
 AUTHORS text
 LICENSE text

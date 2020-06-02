@@ -8,28 +8,33 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "jsx": "react",
-    "module": "es6",
     "moduleResolution": "node",
+    "module": "es6",
     "outDir": "types",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "removeComments": false,
     "strictNullChecks": false,
     "target": "es2020",
+    "typeRoots": [
+      "src/types",
+      "node_modules/@types"
+    ],
     "types": [
       "node",
-      "webpack",
-      "webpack-env",
+      "ramda",
+      "webpack"
     ],
-    "paths": {
-      "@/*": ["./*"]
-    }
   },
   "include": [
     "src/**/*.js",
-    "src/types.d.ts"
+    "*.js"
   ],
   "exclude": [
     "node_modules",
     "public",
-    "src/**/*.test.js"
+    "src/**/*.test.js",
+    "types"
   ]
 }

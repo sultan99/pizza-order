@@ -1,9 +1,14 @@
 {
+  "cSpell.words": [
+    "middlewares",
+    "unapply",
+    "yxxx"
+  ],
   "files.exclude": {
+    "**/.vscode": false,
     "bundle-report.html": true,
     "node_modules": true,
     "public/*.*": true,
-    "types": true,
-    "**/.vscode": true
+    "types": true
   }
 }

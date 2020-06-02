@@ -10,7 +10,10 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["src/**/*.js"],
+  "include": [
+    "src/**/*.js",
+    "*.js",
+  ],
   "exclude": [
     "node_modules",
     "public"

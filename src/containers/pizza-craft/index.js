@@ -1,7 +1,7 @@
-import Description from './description'
+import Info from './info'
 import Loader from '@/components/loader'
 import Panel from './panel.sc'
-import Price from './price'
+import QuantityPrice from './quantity-price'
 import React from 'react'
 import Sizes from './sizes'
 import Toppings from './toppings'
@@ -23,11 +23,11 @@ function PizzaCraft({isLoading, setPizzaSize}) {
   })
   return (
     <Panel>
-      <Description/>
+      <Info/>
       <Sizes/>
       <Loader loading={isLoading}>
         <Toppings/>
-        <Price/>
+        <QuantityPrice/>
       </Loader>
     </Panel>
   )

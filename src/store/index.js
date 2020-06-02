@@ -1,19 +1,18 @@
-import {applyMiddleware, compose, createStore} from 'redux'
+import * as R from 'ramda'
 import devtools from './devtools'
+import pizzaRequests from './pizza/api-requests'
 import reducers from './reducers'
-import createSideEffectMiddleware from '@/common/side-effects'
-import pizzaSideEffects from './pizza/side-effects'
+import {applyMiddleware, createStore} from 'redux'
+import {createApiMiddleware} from '@/store/api-middleware'
 
-const sideEffectMiddleware = createSideEffectMiddleware(pizzaSideEffects)
-
-const middlewares = compose(
-  applyMiddleware(sideEffectMiddleware),
-  devtools()
-)
+const apiMiddleware = createApiMiddleware(pizzaRequests)
 
 const store = createStore(
   reducers,
-  middlewares
+  R.pipe(
+    devtools({name: `pizza-order`}),
+    applyMiddleware(apiMiddleware),
+  )
 )
 
 export default store

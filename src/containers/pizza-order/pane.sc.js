@@ -1,4 +1,3 @@
-import Section from './section.sc'
 import scrollBar from '@/components/scroll-bar/index.sc'
 import styled from 'styled-components'
 import {ifProp} from '@/common/style'

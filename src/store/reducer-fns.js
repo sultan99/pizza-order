@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 
 /**
- * @function
- * @type {(path: string | string[]) => () => any}
+ * @param {string | string[]} path
+ * @returns {import('ramda').Lens}
  */
 const lens = R.ifElse(
   R.is(String),
@@ -11,10 +11,9 @@ const lens = R.ifElse(
 )
 
 /**
- * @function
  * @param {string} prop
  * @param {any} value
- * @returns {() => () => any}
+ * @returns {Lens}
  */
 export const lensFindProp = (prop, value) => R.lens(
   R.find(R.propEq(prop, value)),
@@ -26,8 +25,6 @@ export const lensFindProp = (prop, value) => R.lens(
 )
 
 /**
- * @curried
- * @function
  * @param {string | string[]} path
  * @param {any} value
  * @param {any} state
@@ -44,15 +41,14 @@ export const set = R.curry((path, value, state) =>
 /**
  * @param {string | string[]} path
  * @param {any} value
- * @returns {(state: any) => any}
+ * @returns {() => (state: State) => State}
  */
 export const setState = (path, value) => () => set(path, value)
 
 /**
- * @function
  * @param {string} actionType
- * @param {(action: any) => (state: any) => any} reducer
- * @returns {({action, state}) => {action: any, state: any}}
+ * @param {CurriedReducer} reducer
+ * @returns {Reducer}
  */
 export const on = (actionType, reducer) => R.when(
   R.pathEq([`action`, `type`], actionType),
@@ -63,13 +59,22 @@ export const on = (actionType, reducer) => R.when(
 )
 
 /**
- * @function
  * @param {any} initialState
- * @param {...(action: any, state: any) => any} reducers
- * @returns {(action: any, state: any) => any} state
+ * @param {...Reducer} reducers
+ * @returns {ReduxReducer}
  */
 export const createReducer = (initialState, ...reducers) => R.pipe(
-  (state = initialState, action) => ({action, state}),
+  (state, action) => ({action, state: state || initialState}),
   ...reducers,
   R.prop(`state`)
 )
+
+/**
+ * @typedef {import('ramda').Lens} Lens
+ * @typedef {import('@/store/types').State} State
+ * @typedef {import('@/store/types').Action} Action
+ * @typedef {import('@/store/types').Payload} Payload
+ * @typedef {import('@/store/types').Reducer<State, Action>} Reducer
+ * @typedef {import('@/store/types').CurriedReducer<Payload, State>} CurriedReducer
+ * @typedef {import('redux').Reducer<State, Action>} ReduxReducer
+ */

@@ -10,7 +10,7 @@ import connect from './connect'
 
 const placeOrder = props => () => {
   const orderDetails = {
-    pizzaName: props.pizzaName[0],
+    pizzaName: props.pizzaName,
     quantity: props.quantity,
     subtotal: props.total,
     toppings: R.pluck(`name`, props.selectedToppings),
@@ -18,7 +18,7 @@ const placeOrder = props => () => {
   props.placeOrder(orderDetails)
 }
 
-const PizzaPrice = props => (
+const QuantityPrice = props => (
   <Section>
     <Caption>QUANTITY</Caption>
     <Row>
@@ -35,4 +35,4 @@ const PizzaPrice = props => (
   </Section>
 )
 
-export default connect(PizzaPrice)
+export default connect(QuantityPrice)

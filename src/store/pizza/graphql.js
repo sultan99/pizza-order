@@ -1,5 +1,5 @@
 /**
- * @param {PizzaSize} size
+ * @param {import('@/store/pizza/types').PizzaSize} size
  * @returns {string}
  */
 export const pizzaByName = size => `

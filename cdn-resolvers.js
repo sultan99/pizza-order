@@ -1,49 +1,76 @@
+const R = require(`ramda`)
 const moduleToCdn = require(`module-to-cdn`)
 
-function resolve(name, version) {
-  const list = [
-    {
-      name: `ramda`,
-      var: `R`,
-      url: `https://unpkg.com/ramda@${version}/dist/ramda.min.js`,
-      version
-    },
-    {
-      name: `react-redux`,
-      var: `ReactRedux`,
-      url: `https://unpkg.com/react-redux@${version}/dist/react-redux.min.js`,
-      version
-    },
-    {
-      name: `redux-saga`,
-      var: `ReduxSaga`,
-      url: `https://unpkg.com/redux-saga@${version}/dist/redux-saga.umd.min.js`,
-      version
-    },
-    {
-      name: `regenerator-runtime`,
-      var: `regeneratorRuntime`,
-      url: `https://unpkg.com/regenerator-runtime@${version}/runtime.js`,
-      version
-    },
-    {
-      name: `reselect`,
-      var: `Reselect`,
-      url: `https://unpkg.com/reselect@${version}/dist/reselect.min.js`,
-      version
-    },
-    {
-      name: `styled-components`,
-      var: `styled`,
-      url: `https://unpkg.com/styled-components@${version}/dist/styled-components.min.js`,
-      version
-    },
-  ]
+/**
+ * @typedef {object} CDN
+ * @property {string} name
+ * @property {string} url
+ * @property {string} var
+ * @property {string} version
+ */
 
-  return list.find(pkg => pkg.name === name)
-}
+/**
+ * @param {string} version
+ * @returns {CDN[]}
+ */
+const createCdnList = version => [
+  {
+    name: `ramda`,
+    url: `https://unpkg.com/ramda@${version}/dist/ramda.min.js`,
+    var: `R`,
+    version
+  },
+  {
+    name: `react-redux`,
+    url: `https://unpkg.com/react-redux@${version}/dist/react-redux.min.js`,
+    var: `ReactRedux`,
+    version
+  },
+  {
+    name: `redux-saga`,
+    url: `https://unpkg.com/redux-saga@${version}/dist/redux-saga.umd.min.js`,
+    var: `ReduxSaga`,
+    version
+  },
+  {
+    name: `regenerator-runtime`,
+    url: `https://unpkg.com/regenerator-runtime@${version}/runtime.js`,
+    var: `regeneratorRuntime`,
+    version
+  },
+  {
+    name: `reselect`,
+    url: `https://unpkg.com/reselect@${version}/dist/reselect.min.js`,
+    var: `Reselect`,
+    version
+  },
+  {
+    name: `styled-components`,
+    url: `https://unpkg.com/styled-components@${version}/dist/styled-components.min.js`,
+    var: `styled`,
+    version
+  },
+]
 
-module.exports = (name, version, opts) => (
+/**
+ * @param {string} name
+ * @param {string} version
+ * @returns {CDN | undefined}
+ */
+const resolve = (name, version) => R.find(
+  R.propEq(`name`, name),
+  createCdnList(version)
+)
+
+/**
+ * @param {string} name
+ * @param {string} version
+ * @param {any} opts
+ * @returns {CDN | undefined}
+ */
+const cdnResolver = (name, version, opts) => (
   resolve(name, version) ||
   moduleToCdn(name, version, opts)
 )
+
+module.exports = cdnResolver

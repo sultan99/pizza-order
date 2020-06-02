@@ -1,11 +1,11 @@
+export const PIZZA_CHANGED = `PIZZA/PIZZA_CHANGED`
 export const PIZZA_QUANTITY_CHANGED = `PIZZA/QUANTITY_CHANGED`
-export const PIZZA_RECEIVED = `PIZZA/RECEIVED`
 export const PIZZA_SIZE_CHANGED = `PIZZA/SIZE_CHANGED`
 export const TOPPING_ADDED = `PIZZA/TOPPING_ADDED`
 
 /**
  * @param {string} toppingName
- * @returns { ToppingAdded }
+ * @returns { import('./types').ToppingAdded }
  */
 export const addTopping = toppingName => ({
   type: TOPPING_ADDED,
@@ -13,17 +13,17 @@ export const addTopping = toppingName => ({
 })
 
 /**
- * @param {PizzaPayload} payload
- * @returns {PizzaReceived}
+ * @param {import('./types').PizzaPayload} payload
+ * @returns {import('./types').PizzaReceived}
  */
-export const receivePizza = payload => ({
-  type: PIZZA_RECEIVED,
+export const setPizza = payload => ({
+  type: PIZZA_CHANGED,
   payload
 })
 
 /**
  * @param {number} increment
- * @returns {PizzaQuantityChanged}
+ * @returns {import('./types').ActionPizzaQuantity}
  */
 export const setPizzaQuantity = increment => ({
   type: PIZZA_QUANTITY_CHANGED,
@@ -31,8 +31,8 @@ export const setPizzaQuantity = increment => ({
 })
 
 /**
- * @param {PizzaSize} value
- * @returns {PizzaSizeChanged}
+ * @param {import('./types').PizzaSize} value
+ * @returns {import('./types').ActionPizzaSize}
  */
 export const setPizzaSize = value => ({
   type: PIZZA_SIZE_CHANGED,
