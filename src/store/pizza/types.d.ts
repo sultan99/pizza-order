@@ -1,4 +1,4 @@
-export type PizzaState = {
+export type StatePizza = {
   basePrice: number
   description: string
   isLoading: boolean
@@ -50,7 +50,8 @@ export type Topping = {
   selected: boolean
 }
 
-export type ActionToppingAdded = {  
+export type ActionToppingAdded = {
+  type: string
   payload: PayloadTopping
 }
 

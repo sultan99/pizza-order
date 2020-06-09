@@ -10,15 +10,15 @@ export type Action = {
 }
 
 // reducer-fns
-export type Reducer<S, A> = ({action: A, state: S}) => {action: A, state: S}
+export type Reducer<A, S> = ([action, state]: [A, S]) => [A, S]
 
 export type CurriedReducer<P, S> = (payload: P) => (state: S) => S
 
 // api-middleware
-export type PromisePipe = Function | OnFail | Promise<any>
+export type ApiRequest<P, S> = (store: Store) => (payload: P) => Promise<S>
 
-export interface OnFail extends Function {
+export type  UnaryFunction = (value: any) => any
+
+export interface OnFail extends UnaryFunction {
   type: string
 }
-
-export type ApiRequest<P> = (store: Store) => (payload: P) => Promise<any>

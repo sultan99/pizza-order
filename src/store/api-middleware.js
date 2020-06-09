@@ -1,31 +1,47 @@
+/**
+ * @template P payload
+ * @template S state
+ * @typedef {import('@/store/types').ApiRequest<P, S>} ApiRequest
+ */
+/**
+ * @typedef {import('@/store/types').Action} Action
+ * @typedef {import('redux').Middleware} Middleware
+ * @typedef {import('redux').Store} Store
+ */
+
 import * as R from 'ramda'
 import {hashCode} from '@/common/utils'
 
-export const API_URL = `https://core-graphql.dev.waldo.photos/pizza`
+const API_URL = `https://core-graphql.dev.waldo.photos/pizza`
 
 /**
- * @param {...PromisePipe} resolvers
- * @returns {(data: any) => Promise<any>}
+ * @typedef {import('@/store/types').OnFail} OnFail
+ * @param {...UnaryFunction} fns
+ * @returns {UnaryFunction}
  */
-export const promisePipe = (...resolvers) => data => resolvers.reduce(
-  (promise, next) => next.type !== `onFail` ?
-    promise.then(next) :
-    promise.catch(next),
-  Promise.resolve(data)
-)
-
-/**
- * @param  {...Function} fns
- * @returns {OnFail}
- */
-export function onFail(...fns) {
+export const onFail = (...fns) => {
   const fail = R.pipe(...fns)
   fail.type = `onFail`
   return fail
 }
 
 /**
- * @type {() => (...resolvers: PromisePipe[]) => (name: string) => Promise}
+ * @typedef {import('@/store/types').UnaryFunction} UnaryFunction
+ * @param {...UnaryFunction | OnFail} resolvers
+ * @returns {(data: any) => Promise}
+ */
+export const promisePipe = (...resolvers) => data => R.reduce(
+  (promise, next) => (
+    next['type'] === `onFail` ? // eslint-disable-line
+      promise.catch(next) :
+      promise.then(next)
+  ),
+  Promise.resolve(data),
+  resolvers
+)
+
+/**
+ * @returns {(...resolvers: UnaryFunction[]) => (name: string) => Promise}
  */
 export const createCache = () => (...resolvers) => {
   const cache = {}
@@ -59,35 +75,28 @@ export function fetchData(query) {
 }
 
 /**
+ * @template P payload
+ * @template S state
  * @param {string} actionType
- * @param {ApiRequest} resolver
- * @returns {(store: Store) => (action: Action) => void}
+ * @param {ApiRequest<P, S>} resolver
+ * @returns {[string, ApiRequest<P, S>]}
  */
-export const on = (actionType, resolver) => store => R.when(
-  R.propEq(`type`, actionType),
-  R.pipe(
-    R.prop(`payload`),
-    resolver(store)
-  )
-)
+export const on = (actionType, resolver) => [actionType, resolver]
 
 /**
- * @template A
- * @param {ApiRequest[]} requests
- * @returns {(store: Store) => (next: Function) => (action: A) => Middleware}
+ * @template P payload
+ * @template S state
+ * @param {[string, ApiRequest<P, S>][]} requests
+ * @returns {(store: Store) => (next: Function) => (action: Action) => Middleware}
  */
 export const createApiMiddleware = requests => store => next => action => {
-  requests.forEach(sendRequest =>
-    sendRequest(store)(action)
-  )
+  requests.forEach(([actionType, resolver]) => R.when(
+    R.propEq(`type`, actionType),
+    R.pipe(
+      R.prop(`payload`),
+      resolver(store)
+    ),
+    action
+  ))
   return next(action)
 }
-
-/**
- * @typedef {import('./types').ApiRequest<any>} ApiRequest
- * @typedef {import('./types').OnFail} OnFail
- * @typedef {import('./types').PromisePipe} PromisePipe
- * @typedef {import('@/store/types').Action} Action
- * @typedef {import('redux').Middleware} Middleware
- * @typedef {import('redux').Store} Store
- */

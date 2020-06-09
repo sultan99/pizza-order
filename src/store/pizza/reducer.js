@@ -1,9 +1,17 @@
+/**
+ * @template P payload
+ * @template S state
+ * @typedef {import('@/store/types').CurriedReducer<P, S>} CurriedReducer
+ */
 import * as R from 'ramda'
 import {PIZZA_SIZE_CHANGED, PIZZA_QUANTITY_CHANGED} from './actions'
 import {TOPPING_ADDED, PIZZA_CHANGED} from './actions'
 import {createReducer, lensFindProp, on, set} from '@/store/reducer-fns'
 
-/** @type {PizzaState} */
+/**
+ * @typedef {import('@/store/pizza/types').StatePizza} StatePizza
+ * @type {StatePizza}
+ */
 const initialState = {
   basePrice: 0,
   description: ``,
@@ -15,7 +23,9 @@ const initialState = {
   toppings: [],
 }
 
-/** @type {(state: PizzaState) => number} */
+/**
+ * @type {(state: StatePizza) => number}
+ */
 const countSelectedToppings = R.pipe(
   R.prop(`toppings`),
   R.filter(R.propEq(`selected`, true)),
@@ -23,7 +33,7 @@ const countSelectedToppings = R.pipe(
 )
 
 /**
- * @param {PizzaState} state
+ * @param {StatePizza} state
  * @returns {(selected: boolean) => boolean}
  */
 const canAddMore = state => selected => (
@@ -32,7 +42,10 @@ const canAddMore = state => selected => (
   countSelectedToppings(state) < state.maxToppings
 )
 
-/** @type {import('@/store/types').CurriedReducer<PayloadTopping, PizzaState>} */
+/**
+ * @typedef {import('@/store/pizza/types').PayloadTopping} PayloadTopping
+ * @type {CurriedReducer<PayloadTopping, StatePizza>}
+ */
 const addTopping = ({toppingName}) => state => R.over(
   R.compose(
     R.lensProp(`toppings`),
@@ -46,14 +59,20 @@ const addTopping = ({toppingName}) => state => R.over(
   state
 )
 
-/** @type {import('@/store/types').CurriedReducer<PayloadPizza, PizzaState>} */
+/**
+ * @typedef {import('@/store/pizza/types').PayloadPizza} PayloadPizza
+ * @type {CurriedReducer<PayloadPizza, StatePizza>}
+ */
 const setPizza = pizza => state => R.mergeAll([
   state,
   {isLoading: false},
   pizza,
 ])
 
-/** @type {import('@/store/types').CurriedReducer<PayloadPizzaQuantity, PizzaState>} */
+/**
+ * @typedef {import('@/store/pizza/types').PayloadPizzaQuantity} PayloadPizzaQuantity
+ * @type {CurriedReducer<PayloadPizzaQuantity, StatePizza>}
+ */
 const setPizzaQuantity = ({increment}) => R.over(
   R.lensProp(`quantity`),
   R.pipe(
@@ -62,14 +81,16 @@ const setPizzaQuantity = ({increment}) => R.over(
   )
 )
 
-/** @type {import('@/store/types').CurriedReducer<PayloadPizzaSize, PizzaState>} */
+/**
+ * @typedef {import('@/store/pizza/types').PayloadPizzaSize} PayloadPizzaSize
+ * @type {CurriedReducer<PayloadPizzaSize, StatePizza>}
+ */
 const setPizzaSize = ({pizzaSize}) => R.pipe(
   set(`size`, pizzaSize),
   set(`isLoading`, true),
   set(`quantity`, 1)
 )
 
-/** @type {ReduxReducer} */
 const pizzaReducer = createReducer(
   initialState,
   on(PIZZA_CHANGED, setPizza),
@@ -79,13 +100,3 @@ const pizzaReducer = createReducer(
 )
 
 export default pizzaReducer
-
-/**
- * @typedef {import('./types').PayloadPizzaQuantity} PayloadPizzaQuantity
- * @typedef {import('./types').PayloadPizzaSize} PayloadPizzaSize
- * @typedef {import('./types').PayloadPizza} PayloadPizza
- * @typedef {import('./types').PayloadTopping} PayloadTopping
- * @typedef {import('./types').PizzaState} PizzaState
- * @typedef {import('@/store/types').Action} Action
- * @typedef {import('redux').Reducer<PizzaState, Action>} ReduxReducer
- */

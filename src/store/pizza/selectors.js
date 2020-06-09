@@ -2,9 +2,6 @@ import * as R from 'ramda'
 import {createSelector} from 'reselect'
 import {round} from '@/common/utils'
 
-/**
- * @returns {PizzaState} state
- */
 export const selectPizza = R.prop(`pizza`)
 
 export const selectIsLoading = createSelector(
@@ -28,7 +25,7 @@ export const selectPizzaSize = createSelector(
 )
 
 /**
- * @param {PizzaState} state
+ * @param {StatePizza} state
  * @returns {number}
  */
 export const selectQuantity = createSelector(
@@ -42,7 +39,7 @@ export const selectBasePrice = createSelector(
 )
 
 /**
- * @param {PizzaState} state
+ * @param {StatePizza} state
  * @returns {Topping[]} toppings
  */
 
@@ -52,7 +49,7 @@ export const selectToppings = createSelector(
 )
 
 /**
- * @type {(state: PizzaState) => Topping[]}
+ * @type {(state: StatePizza) => Topping[]}
  */
 export const selectSelectedToppings = createSelector(
   selectToppings,
@@ -60,7 +57,7 @@ export const selectSelectedToppings = createSelector(
 )
 
 /**
- * @param {PizzaState} state
+ * @param {StatePizza} state
  * @returns {number}
  */
 export const selectToppingPrice = createSelector(
@@ -85,3 +82,7 @@ export const selectTotal = createSelector(
     round
   )
 )
+
+/**
+ * @typedef {import('@/store/pizza/types').StatePizza} StatePizza
+ */

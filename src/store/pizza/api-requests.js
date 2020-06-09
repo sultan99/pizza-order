@@ -1,3 +1,12 @@
+/**
+ * @typedef {import('@/store/pizza/types').ActionPizzaSize} ActionPizzaSize
+ * @typedef {import('@/store/pizza/types').DbPizzaByName} DbPizzaByName
+ * @typedef {import('@/store/pizza/types').DbTopping} DbTopping
+ * @typedef {import('@/store/pizza/types').PayloadPizzaSize} PayloadPizzaSize
+ * @typedef {import('@/store/pizza/types').StatePizza} StatePizza
+ * @typedef {import('@/store/pizza/types').Topping} Topping
+ */
+
 import * as R from 'ramda'
 import randomPizza from './names'
 import {PIZZA_SIZE_CHANGED, setPizza} from './actions'
@@ -7,13 +16,18 @@ import {pizzaByName} from './graphql'
 
 const pizzaCache = createCache()
 
-/** @type {(item: DbTopping) => Topping} */
+/**
+ * @param {DbTopping} item
+ * @returns {Topping}
+ */
 const flatData = item => R.merge(
   item.topping,
   {selected: item.defaultSelected}
 )
 
-/** @type {(data: DbPizzaByName) => PizzaState} */
+/**
+ * @type {(data: DbPizzaByName) => StatePizza}
+ */
 const reshape = R.pipe(
   R.path([`data`, `pizzaSizeByName`]),
   R.over(R.lensProp(`description`), randomPizza(`description`)),
@@ -27,7 +41,9 @@ const takeDataFromCache = pizzaCache(
   reshape,
 )
 
-/** @type {import('@/store/types').ApiRequest<PayloadPizzaSize>} */
+/**
+ * @type {import('@/store/types').ApiRequest<PayloadPizzaSize, ActionPizzaSize>}
+ */
 const fetchPizza = ({dispatch}) => promisePipe(
   R.prop(`pizzaSize`),
   takeDataFromCache,
@@ -40,15 +56,7 @@ const fetchPizza = ({dispatch}) => promisePipe(
 )
 
 const pizzaRequests = [
-  on(PIZZA_SIZE_CHANGED, fetchPizza)
+  on(PIZZA_SIZE_CHANGED, fetchPizza),
 ]
 
 export default pizzaRequests
-
-/**
- * @typedef {import('@/store/pizza/types').DbPizzaByName} DbPizzaByName
- * @typedef {import('@/store/pizza/types').DbTopping} DbTopping
- * @typedef {import('@/store/pizza/types').PayloadPizzaSize} PayloadPizzaSize
- * @typedef {import('@/store/pizza/types').PizzaState} PizzaState
- * @typedef {import('@/store/pizza/types').Topping} Topping
- */

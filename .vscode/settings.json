@@ -1,14 +1,11 @@
 {
   "cSpell.words": [
+    "devtool",
     "middlewares",
     "unapply",
     "yxxx"
   ],
   "files.exclude": {
-    "**/.vscode": false,
-    "bundle-report.html": true,
-    "node_modules": true,
-    "public/*.*": true,
-    "types": true
+    "**/.vscode": false
   }
 }

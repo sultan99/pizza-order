@@ -1,3 +1,18 @@
+/**
+ * @typedef {import('@/store/types').Action} Action
+ * @typedef {import('@/store/types').Payload} Payload
+ */
+/**
+ * @template A action
+ * @template S state
+ * @typedef {import('@/store/types').Reducer<A, S>} Reducer
+ */
+/**
+ * @template P payload
+ * @template S state
+ * @typedef {import('@/store/types').CurriedReducer<P, S>} CurriedReducer
+ */
+
 import * as R from 'ramda'
 
 /**
@@ -13,7 +28,7 @@ const lens = R.ifElse(
 /**
  * @param {string} prop
  * @param {any} value
- * @returns {Lens}
+ * @returns {import('ramda').Lens}
  */
 export const lensFindProp = (prop, value) => R.lens(
   R.find(R.propEq(prop, value)),
@@ -24,12 +39,6 @@ export const lensFindProp = (prop, value) => R.lens(
   )
 )
 
-/**
- * @param {string | string[]} path
- * @param {any} value
- * @param {any} state
- * @returns {any}
- */
 export const set = R.curry((path, value, state) =>
   R.set(
     lens(path),
@@ -39,42 +48,32 @@ export const set = R.curry((path, value, state) =>
 )
 
 /**
+ * @template S state
  * @param {string | string[]} path
  * @param {any} value
- * @returns {() => (state: State) => State}
+ * @returns {() => (state: S) => S}
  */
 export const setState = (path, value) => () => set(path, value)
 
 /**
+ * @template S state
  * @param {string} actionType
- * @param {CurriedReducer} reducer
- * @returns {Reducer}
+ * @param {CurriedReducer<Payload, S>} reducer
+ * @returns {Reducer<Action, S>}
  */
 export const on = (actionType, reducer) => R.when(
-  R.pathEq([`action`, `type`], actionType),
-  ({action, state}) => ({
-    action,
-    state: reducer(action.payload)(state)
-  })
+  ([action]) => action.type === actionType,
+  ([action, state]) => [action, reducer(action.payload)(state)]
 )
 
 /**
- * @param {any} initialState
- * @param {...Reducer} reducers
- * @returns {ReduxReducer}
+ * @template S state
+ * @param {S} initialState
+ * @param {...Reducer<Action, S>} reducers
+ * @returns {import('redux').Reducer<S, Action>}
  */
 export const createReducer = (initialState, ...reducers) => R.pipe(
-  (state, action) => ({action, state: state || initialState}),
+  (state = initialState, action) => [action, state],
   ...reducers,
-  R.prop(`state`)
+  R.last
 )
-
-/**
- * @typedef {import('ramda').Lens} Lens
- * @typedef {import('@/store/types').State} State
- * @typedef {import('@/store/types').Action} Action
- * @typedef {import('@/store/types').Payload} Payload
- * @typedef {import('@/store/types').Reducer<State, Action>} Reducer
- * @typedef {import('@/store/types').CurriedReducer<Payload, State>} CurriedReducer
- * @typedef {import('redux').Reducer<State, Action>} ReduxReducer
- */

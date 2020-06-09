@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('webpack').Configuration} Configuration
+ * @typedef {import('webpack-dev-server').Configuration} DevServerConfig
+ * @typedef {Configuration | DevServerConfig} WebpackConfig
+ */
 const R = require(`ramda`)
 const BundleAnalyzerPlugin = require(`webpack-bundle-analyzer`).BundleAnalyzerPlugin
 const CopyPlugin = require(`copy-webpack-plugin`)
@@ -62,6 +67,7 @@ const common = {
 /** @type {WebpackConfig} */
 const develop = {
   mode: `development`,
+  devtool: `source-map`,
   devServer: {
     historyApiFallback: true
   },
@@ -97,9 +103,3 @@ const createConfig = R.ifElse(
 )
 
 module.exports = createConfig(common)
-
-/**
- * @typedef {import('webpack').Configuration} Configuration
- * @typedef {import('webpack-dev-server').Configuration} DevServerConfig
- * @typedef {Configuration | DevServerConfig} WebpackConfig
- */
