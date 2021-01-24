@@ -1,40 +1,38 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
     "baseUrl": "./src",
-    "checkJs": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "moduleResolution": "node",
+    "lib": [
+      "ES2015",
+      "ES2016",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020",
+      "ESNext",
+      "dom"
+    ],
     "module": "es6",
-    "outDir": "types",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
-    "removeComments": false,
-    "strictNullChecks": false,
-    "target": "es2020",
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
     "typeRoots": [
       "src/types",
       "node_modules/@types"
     ],
-    "types": [
-      "node",
-      "ramda",
-      "webpack"
-    ],
   },
   "include": [
-    "src/**/*.js",
-    "*.js"
-  ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "src/**/*.test.js",
-    "types"
+    "src"
   ]
 }
