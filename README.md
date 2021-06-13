@@ -6,7 +6,7 @@
 <br/>
 
 ## Getting started
-Don't warry be magic 🧙‍
+Don't worry be magic 🧙‍
 
 🧙‍ Three magic lines to get the project:
 ```sh
