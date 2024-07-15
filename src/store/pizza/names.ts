@@ -12,7 +12,6 @@ const names = [
   ['Pizza Romana', 'A delicious combination of anchovies, capers, mozzarella, and tomatoes, this pizza offers a taste of Roman culinary art.'],
   ['Pizza Veronese', 'Made simply with Prosciutto crudo and mushrooms, this pizza provides a rich and savory taste that is hard to resist.'],
   ['Pomodoro Pachina', 'Topped with arugula and cherry tomatoes, this pizza delivers a fresh, vibrant, and healthy flavor that delights.'],
-
 ]
 /* eslint-enable max-len */
 

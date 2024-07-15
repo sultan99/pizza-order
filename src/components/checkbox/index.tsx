@@ -13,5 +13,6 @@ const Checkbox = ({checked, text, ...rest}: CheckboxProps) => (
   </Label>
 )
 
-export default Checkbox
 export {CheckboxGroup} from './styles.scss'
+
+export default Checkbox

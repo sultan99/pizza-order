@@ -3,6 +3,8 @@
 
 🍭 Here you can find UI prototype: [figma](https://www.figma.com/file/Q1ZdtQ99iiRosAt92XntjEOf/%F0%9F%8D%95-Pizza-Order?node-id=0%3A1)
 
+📺 Here you can find [online demo](https://codesandbox.io/p/devbox/github/sultan99/pizza-order/tree/master/)
+
 <br/>
 
 ## Getting started

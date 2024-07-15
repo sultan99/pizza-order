@@ -28,16 +28,16 @@ const PizzaOrder = () => {
         <Row>
           <AppLogo/>
           <Title size='38px'>
-          Your Order
+            Your Order
           </Title>
         </Row>
         <OrderDetails/>
         <Row >
           <Title size='24px'>
-          Total
+            Total
           </Title>
           <Price size='28px'>
-          ${total.toFixed(2)}
+            ${total.toFixed(2)}
           </Price>
         </Row>
       </Pane>

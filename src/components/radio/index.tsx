@@ -15,5 +15,6 @@ const Radio = ({checked, text, subtext, ...rest}: RadioParams) => (
   </Label>
 )
 
-export default Radio
 export {RadioGroup} from './styles.scss'
+
+export default Radio

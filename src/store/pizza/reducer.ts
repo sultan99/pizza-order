@@ -30,7 +30,7 @@ const addTopping: R<string> = toppingName => state => {
   )
 
   return set(
-    `toppings.${index}.selected`, // TODO: Fix this
+    `toppings.${index}.selected`,
     value => (value || canAddMore(state)) && !value,
     state,
   )
