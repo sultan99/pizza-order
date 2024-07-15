@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
 <head>
   <title>Pizza Order</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Order delicious, hot pizzas with our Pizza App. Fast delivery, customizable toppings, and exclusive deals. Download now!" />
   <link href="https://fonts.googleapis.com/css?family=Abel|Rationale&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
@@ -17,7 +18,12 @@
 
     body {
       margin: 0;
+      overflow-y: scroll;
       padding: 0;
+
+      @media screen and (max-width: 1000px) {
+        overflow-y: auto;
+      }
     }
 
     input,
@@ -25,6 +31,11 @@
     textarea,
     button {
       font-family: inherit;
+    }
+
+    #app {
+      container-name: app;
+      container-type: inline-size;
     }
   </style>
 </head>

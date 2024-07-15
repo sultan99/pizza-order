@@ -1,0 +1,36 @@
+/**
+  @tag h1
+  @component Title
+  size?: 58px --size
+*/
+.title {
+  font-size: var(--size, 58px);
+  font-weight: 600;
+  margin: 0;
+}
+
+/**
+  @tag p
+  @component Text
+  color?: #b7b7b7 --color
+  size?: 28px --size
+*/
+.text {
+  color: var(--color, #b7b7b7);
+  font-size: var(--size, 28px);
+  font-weight: normal;
+  margin-bottom: 16px;
+  margin-top: 0px;
+}
+
+/**
+  @tag span
+  @component Price
+  color?: black --color
+  size?: 50px --size
+*/
+.price {
+  color: var(--color, black);
+  font-family: "Rationale", sans-serif;
+  font-size: var(--size, 50px);
+}

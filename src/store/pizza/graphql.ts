@@ -1,12 +1,12 @@
-import { PizzaSize } from "./types";
+import type {PizzaSize} from '@/store/types'
 
-export const pizzaByName: PizzaByName = size => `
+export const pizzaByName = (size: PizzaSize) => `
   pizzaSizeByName(name: ${size}) {
     name
     maxToppings
     basePrice
     toppings {
-      defaultSelected
+      selected: defaultSelected
       topping {
         name
         price
@@ -14,7 +14,3 @@ export const pizzaByName: PizzaByName = size => `
     }
   }
 `
-
-interface PizzaByName {
-  (size: PizzaSize): string
-}

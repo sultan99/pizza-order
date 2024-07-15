@@ -1,72 +1,63 @@
-import * as R from 'ramda'
-import {AddTopping, CanAddMore, CountSelectedToppings, PizzaState, SetPizza, SetPizzaQuantity, SetPizzaSize} from './types'
-import {TOPPING_ADDED, PIZZA_QUANTITY_CHANGED, PIZZA_CHANGED,PIZZA_SIZE_CHANGED} from './actions'
-import {createReducer, on} from '../reducer-fns'
-import {lensFindProp, set} from '@/utils/lens'
+import type {Pizza, PizzaSize, PizzaState, Topping} from '@/store/types'
+import {compose, set} from '@/common/fp-fns'
+import {createReducer, on} from '@/common/redux'
+
+type R<A> = (arg: A) => (state: PizzaState) => PizzaState
 
 const initialState: PizzaState = {
   basePrice: 0,
-  description: ``,
+  description: '',
   isLoading: true,
   maxToppings: 0,
-  name: ``,
+  name: '',
   quantity: 1,
-  size: `SMALL`,
+  size: 'SMALL',
   toppings: [],
 }
 
-const countSelectedToppings: CountSelectedToppings = R.pipe(
-  R.prop(`toppings`),
-  R.filter(R.propEq(`selected`, true)),
-  R.length,
+const countSelected = (toppings: Topping[]) => toppings
+  .filter(({selected}) => selected)
+  .length
+
+const canAddMore = ({toppings, maxToppings}: PizzaState) => (
+  !maxToppings ||
+  countSelected(toppings) < maxToppings
 )
 
-const canAddMore: CanAddMore = state => selected => (
-  selected ||
-  R.isNil(state.maxToppings) ||
-  countSelectedToppings(state) < state.maxToppings
-)
-
-const addTopping: AddTopping = toppingName => state => R.over(
-  R.compose(
-    R.lensProp(`toppings`),
-    lensFindProp(`name`, toppingName),
-    R.lensProp(`selected`),
-  ) as R.Lens,
-  R.when(
-    canAddMore(state),
-    R.not
-  ),
-  state
-)
-
-const setPizza: SetPizza = pizza => state => R.mergeAll([
-  state,
-  {isLoading: false},
-  pizza,
-]) as PizzaState
-
-const setPizzaQuantity: SetPizzaQuantity = increment => R.over(
-  R.lensProp(`quantity`),
-  R.pipe(
-    R.add(increment),
-    R.max<number>(1), // at least should be 1 quantity
+const addTopping: R<string> = toppingName => state => {
+  const index = state.toppings.findIndex(
+    topping => toppingName === topping.name
   )
+
+  return set(
+    `toppings.${index}.selected`, // TODO: Fix this
+    value => (value || canAddMore(state)) && !value,
+    state,
+  )
+}
+
+const setPizza: R<Pizza> = pizza => state => ({
+  ...state,
+  ...pizza,
+  isLoading: false,
+})
+
+const setPizzaQuantity: R<number> = increment => (
+  set('quantity', value => Math.max(1, value + increment))
 )
 
-const setPizzaSize: SetPizzaSize = pizzaSize => R.pipe(
-  set(`size`, pizzaSize),
-  set(`isLoading`, true),
-  set(`quantity`, 1)
+const setPizzaSize: R<PizzaSize> = pizzaSize => compose(
+  set('size', pizzaSize),
+  set('isLoading', true),
+  set('quantity', 1),
 )
-
 
 const pizzaReducer = createReducer(
   initialState,
-  on(PIZZA_CHANGED, setPizza),
-  on(PIZZA_QUANTITY_CHANGED, setPizzaQuantity),
-  on(PIZZA_SIZE_CHANGED, setPizzaSize),
-  on(TOPPING_ADDED, addTopping),
+  on('PIZZA_CHANGED', setPizza),
+  on('PIZZA_QUANTITY_CHANGED', setPizzaQuantity),
+  on('PIZZA_SIZE_CHANGED', setPizzaSize),
+  on('TOPPING_ADDED', addTopping),
 )
 
 export default pizzaReducer

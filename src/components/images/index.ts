@@ -5,7 +5,7 @@ import {random} from '@/common/side-effects'
 const imageList: string[] = [i01, i02]
 
 const randomImages = (): string => (
-  imageList[random(0, 1)]
+  `url(${imageList[random(0, 1)]})`
 )
 
 export default randomImages

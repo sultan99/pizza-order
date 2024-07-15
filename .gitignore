@@ -1,4 +1,8 @@
+*.scss.d.ts
+.idea
+.vscode
 /bundle-report.html
+/dist
 /node_modules
 /public/*.*
 /types

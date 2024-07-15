@@ -1,3 +1,13 @@
 {
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "files.exclude": {
+    "**/*.scss.d.ts": true,
+    "**/.idea": true,
+    "**/.vscode": true,
+    "bundle-report.html": true,
+    "dist": true,
+    "node_modules": true,
+    "public/*.*": true,
+    "types": true
+  }
 }

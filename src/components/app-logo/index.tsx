@@ -1,10 +1,9 @@
-import Circle from './circle.sc'
-import React from 'react'
 import logo from './logo.png'
+import {Circle} from './styles.scss'
 
 const AppLogo = () => (
   <Circle>
-    <img src={logo}/>
+    <img alt='Logo, slice of a pizza' src={logo}/>
   </Circle>
 )
 

@@ -1,0 +1,46 @@
+/**
+  @tag: div
+  @component: Section
+*/
+.order-item {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+
+  > :first-child {
+    min-width: 65px;
+    text-align: center;
+    > button {
+      display: none;
+    }
+  }
+
+  &:hover {
+    > :first-child > button {
+      display: inline-block;
+    }
+
+    > :first-child > .badge {
+      display: none;
+    }
+  }
+}
+
+/**
+  @tag: div
+  @component: Badge
+*/
+.badge {
+  background-color: #ffbf44;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Rationale", sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  width: 40px;
+}

@@ -1,9 +1,13 @@
-// @ts-nocheck
-const ext = `__REDUX_DEVTOOLS_EXTENSION__`
-const isDev = process.env.NODE_ENV === `development`
+declare global {
+  interface Window {
+    '__REDUX_DEVTOOLS_EXTENSION__'?: Devtools
+  }
+}
 
-const devtools = isDev && window[ext]
-  ? window[ext]
-  : () => fn => fn
+type Devtools = (options: {name?: string}) => any
 
-export default devtools
+const isDev = process.env.NODE_ENV === 'development'
+const mockExt: Devtools = () => (fn: () => void) => fn
+const extension = window?.__REDUX_DEVTOOLS_EXTENSION__ ?? mockExt
+
+export default isDev ? extension : mockExt

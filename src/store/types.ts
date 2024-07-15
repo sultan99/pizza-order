@@ -1,31 +1,57 @@
-import {Reducer} from 'redux'
+type Prettify<T> = { [K in keyof T]: T[K] }
+type Input<P> = (payload: P) => void
 
-export interface Action<P> {
-  type: string
-  payload: P
+export type Action<P = any> = {type: ActionTypes, payload: P}
+
+export type Actions = {
+  'ORDER_PLACED': Input<Omit<Order, 'id'>>
+  'ORDER_REMOVED': Input<string>
+  'ORDERS_PLACED': Input<Order[]>
+  'PIZZA_CHANGED': Input<Pizza>
+  'PIZZA_QUANTITY_CHANGED': Input<number>
+  'PIZZA_SIZE_CHANGED': Input<PizzaSize>
+  'TOPPING_ADDED': Input<Topping>
 }
 
-export interface ActionCreator<P> {
-  (payload: P): Action<P>
+export type ActionTypes = Prettify<keyof Actions>
+
+// Store with curried dispatch
+export type Store = {
+  dispatch: (type: ActionTypes) => <P>(payload: P) => void
+  getState: () => State
 }
 
-export interface PayloadReducer<P, S> {
-  (payload: P): (state: S) => S
+export type PizzaSize = 'SMALL' | 'MEDIUM' | 'LARGE'
+
+export type Topping = {
+  name: string
+  price: number
+  selected: boolean
 }
 
-export interface ActionReducer<S, A> {
-  (action: A) : (state: S) => S
+export type Pizza = {
+  basePrice: number
+  maxToppings: number
+  toppings: Topping[]
 }
 
-export interface On {
-  <S>(actionType: string, reducer: PayloadReducer<any, S>): ActionReducer<S, Action<any>>
+export type PizzaState = Pizza & {
+  description: string
+  isLoading: boolean
+  name: string
+  quantity: number
+  size: PizzaSize
 }
 
-export interface CreateReducer {
-  <S>(initialState: S, ...reducers: ActionReducer<S, Action<any>>[]): Reducer<S, Action<any>>
+export type Order = {
+  id: string
+  pizzaName: string
+  quantity: number
+  subtotal: number
+  toppings: string[]
 }
 
-export interface CreateAction {
-  (type: string): [string, <P>(payload: P) => Action<P>]
+export type State = {
+  pizza: PizzaState
+  orders: Order[]
 }
-

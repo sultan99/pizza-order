@@ -1,0 +1,29 @@
+/**
+  @tag div
+  @component Pane
+*/
+.pane {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  position: relative;
+}
+
+/**
+  @tag div
+  @component Cover
+  isVisible: true visible
+*/
+.cover {
+  background-color: rgba(255, 255, 255, 0.5);
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &.visible {
+    display: block;
+  }
+}

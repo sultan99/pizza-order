@@ -1,0 +1,24 @@
+/**
+  @tag: svg
+  @component Svg
+  rotating?: true rotating
+  rotation?: 0 --rotation
+  strokeWidth?: 0px --stroke-width
+*/
+.icon {
+  display: inline;
+  stroke-width: var(--stroke-width, 1px);
+  transform: rotate(var(--rotation, 0));
+  transition: all 300ms;
+  overflow: visible;
+
+  &.rotating {
+    animation: spin 1s linear infinite;
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

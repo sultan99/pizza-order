@@ -14,19 +14,14 @@
   },
   "plugins": [
     "@typescript-eslint",
+    "@stylistic/ts",
     "react"
   ],
   "rules": {
-    "array-bracket-spacing": [
-      "error",
-      "never"
-    ],
+    "array-bracket-spacing": ["error", "never"],
     "array-callback-return": "error",
     "arrow-spacing": "error",
-    "brace-style": [
-      "error",
-      "stroustrup"
-    ],
+    "brace-style": ["error", "stroustrup"],
     "comma-spacing": [
       "error",
       {
@@ -34,21 +29,11 @@
         "after": true
       }
     ],
-    "computed-property-spacing": [
-      "error",
-      "never"
-    ],
-    "cond-assign": "off",
+    "computed-property-spacing": ["error", "never"],
     "dot-notation": "error",
-    "eol-last": [
-      "error",
-      "always"
-    ],
+    "eol-last": ["error", "always"],
     "eqeqeq": "error",
-    "generator-star-spacing": [
-      "error",
-      "after"
-    ],
+    "generator-star-spacing": ["error", "after"],
     "indent": [
       "error",
       2,
@@ -69,10 +54,7 @@
         "before": true
       }
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
+    "linebreak-style": ["error", "unix"],
     "max-len": [
       "error",
       {
@@ -80,16 +62,11 @@
         "tabWidth": 2
       }
     ],
-    "named": "off",
     "no-array-constructor": "error",
     "no-console": [
       "warn",
       {
-        "allow": [
-          "warn",
-          "error",
-          "info"
-        ]
+        "allow": ["warn", "error", "info"]
       }
     ],
     "no-dupe-class-members": "error",
@@ -122,9 +99,7 @@
     "no-shadow": [
       "error",
       {
-        "allow": [
-          "done"
-        ]
+        "allow": ["done"]
       }
     ],
     "no-shadow-restricted-names": "error",
@@ -133,33 +108,34 @@
     "no-undef": "error",
     "no-unreachable": "error",
     "no-unused-labels": "off",
-    "no-unused-vars": [
+    "no-use-before-define": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": "error",
+    "@stylistic/ts/member-delimiter-style": [
       "error",
       {
-        "ignoreRestSiblings": true
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
       }
     ],
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": [
-      "error"
-    ],
+    "@stylistic/ts/semi": ["error", "never"],
     "no-useless-constructor": "error",
     "no-var": "error",
-    "object-curly-spacing": [
-      "error",
-      "never"
-    ],
-    "object-shorthand": [
-      "error",
-      "always"
-    ],
+    "object-curly-spacing": ["error", "never"],
+    "object-shorthand": ["error", "always"],
     "prefer-spread": "error",
     "prefer-template": "error",
     "quotes": [
       "error",
-      "backtick",
+      "single",
       {
-        "allowTemplateLiterals": true
+        "allowTemplateLiterals": false
       }
     ],
     "radix": "error",
@@ -170,17 +146,11 @@
       }
     ],
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": [
-      "error"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ],
-    "space-before-blocks": [
-      "error",
-      "always"
-    ],
+    "react/jsx-uses-vars": ["error"],
+    "jsx-quotes": ["error", "prefer-single"],
+
+    "semi": ["error", "never"],
+    "space-before-blocks": ["error", "always"],
     "space-before-function-paren": [
       "error",
       {
@@ -189,19 +159,10 @@
         "asyncArrow": "always"
       }
     ],
-    "space-in-parens": [
-      "error",
-      "never"
-    ],
+    "space-in-parens": ["error", "never"],
     "space-infix-ops": "error",
-    "spaced-comment": [
-      "error",
-      "always"
-    ],
-    "template-curly-spacing": [
-      "error",
-      "never"
-    ],
+    "spaced-comment": ["error", "always"],
+    "template-curly-spacing": ["error", "never"],
     "use-isnan": "error",
     "valid-typeof": "error"
   }

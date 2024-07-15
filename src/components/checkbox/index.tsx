@@ -1,24 +1,17 @@
-import Input from './input.sc'
-import Label from './label.sc'
-import React, {FC} from 'react'
-import Text from './text.sc'
-import {OnChangeEvent} from '@/types/common'
+import type {ComponentProps} from 'react'
+import {Input, Label, Text} from './styles.scss'
 
-const Checkbox: CheckboxType = ({checked, text, ...rest}) => (
+type CheckboxProps = ComponentProps<'input'> & {
+  checked: boolean
+  text: string
+}
+
+const Checkbox = ({checked, text, ...rest}: CheckboxProps) => (
   <Label checked={checked}>
-    <Input type="checkbox" checked={checked} {...rest}/>
+    <Input type='checkbox' checked={checked} {...rest}/>
     <Text>{text}</Text>
   </Label>
 )
 
 export default Checkbox
-
-type CheckboxType = FC<Props>
-
-interface Props {
-  checked: boolean
-  name: string
-  onChange: OnChangeEvent
-  text: string
-  value: string
-}
+export {CheckboxGroup} from './styles.scss'

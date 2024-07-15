@@ -1,0 +1,17 @@
+/**
+  @tag div
+  @component PageLayout
+*/
+.page-layout {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+}
+
+@container app (max-width: 1000px) {
+  .page-layout {
+    flex-direction: column;
+  }
+}

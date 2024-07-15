@@ -1,0 +1,50 @@
+/**
+  @tag label
+  @component Label
+  checked: true checked
+*/
+.label {
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 50px;
+  padding: 0 20px;
+  position: relative;
+  user-select: none;
+
+  &.checked {
+    background-color: #ffbf44;
+  }
+}
+
+/**
+  @tag input
+  @component Input
+*/
+.input {
+  opacity: 0;
+  position: absolute;
+}
+
+/**
+  @tag span
+  @component Text
+*/
+.span {
+  font-family: "Rationale", sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/**
+  @tag div
+  @component CheckboxGroup
+*/
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  line-height: 65px;
+}

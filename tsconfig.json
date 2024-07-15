@@ -3,36 +3,24 @@
     "baseUrl": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": [
-      "ES2015",
-      "ES2016",
-      "ES2017",
-      "ES2018",
-      "ES2019",
-      "ES2020",
       "ESNext",
       "dom"
     ],
-    "module": "es6",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "noEmit": true,
-    "noImplicitAny": true,
+    "outDir": "./dist",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     },
     "sourceMap": true,
     "strict": true,
-    "strictNullChecks": true,
     "target": "ESNext",
     "typeRoots": [
       "src/types",
       "node_modules/@types"
     ],
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
