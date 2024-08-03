@@ -1,9 +1,13 @@
 // finds type from path, e.g: 'pizza.basePrice' -> number
 export type PathToType<T, P extends string> = (
   P extends `${infer K}.${infer Rest}`
-    ? K extends keyof T
-      ? PathToType<T[K], Rest>
-      : never
+    ? K extends `${number}`
+      ? T extends Array<infer U>
+        ? PathToType<U, Rest>
+        : never
+      : K extends keyof T
+        ? PathToType<T[K], Rest>
+        : never
     : P extends keyof T
       ? T[P]
       : never
@@ -27,7 +31,7 @@ const update = (keys: string[], fn: any, obj: any | any[]): any => {
   if (keys.length === 1) {
     return Array.isArray(obj)
       ? obj.map((v, i) => i.toString() === key ? fn(v) : v)
-      : ({...obj, [key]: fn(obj[key])})
+      : {...obj, [key]: fn(obj[key])}
   }
 
   return Array.isArray(obj)

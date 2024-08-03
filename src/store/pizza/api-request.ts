@@ -1,13 +1,14 @@
-import type {PizzaState, Store, Topping} from '@/store/types'
+import type {CurriedStore, PizzaSize, PizzaState, Topping} from '@/store/types'
 import randomPizza from './names'
-import {asyncCompose, createMiddleware, on} from '@/common/side-effects'
 import {compose, get, set} from '@/common/fp-fns'
+import {createMiddleware, on} from '@/common/redux/api'
+import {isDev} from '@/common/utils'
 import {pizzaByName} from './graphql'
 
-const isDev = process.env.NODE_ENV === 'development'
 const API_URL = isDev ? '/api/pizza' : 'https://core-graphql.dev.waldo.photos/pizza'
 
-type R<A> = (arg: A) => (state: RawPizza) => PizzaState
+type R<P> = (store: CurriedStore) => (payload: P) => Promise<void> | void
+type Reshape = (input: RawData) => Partial<PizzaState>
 
 type RawTopping = {
   selected: boolean
@@ -34,7 +35,7 @@ const flatToppings = (toppings: RawTopping[]): Topping[] => (
   toppings.map(({topping, selected}) => ({...topping, selected}))
 )
 
-const reshape: R<RawData> = compose(
+const reshape: Reshape = compose(
   set('toppings', flatToppings as any),
   set<'description', PizzaState>('description', () => randomPizza('description')),
   set<'name', PizzaState>('name', () => randomPizza('name')),
@@ -47,14 +48,17 @@ export const fetchData = (query: string) => {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({query: `{${query}}`})
   }
-  return fetch(API_URL, opts).then<RawData>(res => res.json())
+  return fetch(API_URL, opts)
+    .then<RawData>(res => res.json())
+    .then(reshape)
 }
 
-const fetchPizza = ({dispatch}: Store) => asyncCompose(
-  dispatch('PIZZA_CHANGED'),
-  reshape,
-  fetchData,
-  pizzaByName,
+const fetchPizza: R<PizzaSize> = ({dispatch}) => size => (
+  Promise.resolve(size)
+    .then(pizzaByName)
+    .then(fetchData)
+    .then(dispatch('PIZZA_CHANGED'))
+    .catch(console.error)
 )
 
 const pizzaApiRequest = createMiddleware(

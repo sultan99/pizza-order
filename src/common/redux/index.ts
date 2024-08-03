@@ -1,4 +1,4 @@
-import type {ActionTypes, Actions, State} from '@/store/types'
+import type {ActionTypes, Actions, PickPayload, State} from '@/store/types'
 import type {PathToType} from '@/common/fp-fns'
 import {get} from '@/common/fp-fns'
 import {useDispatch, useSelector} from 'react-redux'
@@ -7,8 +7,12 @@ type Action = {
   type: ActionTypes | string
   payload?: any
 }
+
 type Reducer<S> = (state: S, action: Action) => S
-type CurriedReducer<S, P> = (payload: P) => (state: S) => S
+
+export type CurriedReducer<T extends ActionTypes, S> = (
+  (payload: PickPayload<T>) => (state: S) => S
+)
 
 export const createReducer = <S>(initialState: S, ...fns: Reducer<S>[]) =>
   (state = initialState, action: Action) => (
@@ -18,9 +22,9 @@ export const createReducer = <S>(initialState: S, ...fns: Reducer<S>[]) =>
     )
   )
 
-export const on = <S, P>(
-  actionType: ActionTypes,
-  reducer: CurriedReducer<S, P>
+export const on = <T extends ActionTypes, S>(
+  actionType: T,
+  reducer: CurriedReducer<T, S>
 ): Reducer<S> => (state, action) => (
     action.type === actionType
       ? reducer(action.payload)(state)
@@ -28,10 +32,11 @@ export const on = <S, P>(
   )
 
 export const useAction = <K extends ActionTypes>(type: K) => {
-  type Payload = Parameters<Actions[K]>[number]
   const dispatch = useDispatch()
 
-  return (payload: Payload) => dispatch({type, payload})
+  return (payload: PickPayload<K>) => {
+    dispatch({type, payload})
+  }
 }
 
 export const useStore = <P extends string>(path: P) => (

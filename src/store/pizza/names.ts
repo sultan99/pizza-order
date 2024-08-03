@@ -1,4 +1,4 @@
-import {random} from '@/common/side-effects'
+import {random} from '@/common/utils'
 
 /* eslint-disable max-len */
 const names = [
@@ -15,8 +15,11 @@ const names = [
 ]
 /* eslint-enable max-len */
 
-const randomPizza = (value: string) => (
-  names[random(0, names.length - 1)]?.at(Number(value !== 'name')) ?? 'Italian Pizza'
-)
+const randomPizza = (value: string) => {
+  const index = random(0, names.length - 1)
+  const zeroOrOne = Number(value !== 'name')
+
+  return names[index]?.at(zeroOrOne) ?? 'Italian Pizza'
+}
 
 export default randomPizza

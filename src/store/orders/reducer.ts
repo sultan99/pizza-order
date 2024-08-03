@@ -1,17 +1,18 @@
-import type {Order} from '@/store/types'
+import type {ActionTypes, Order} from '@/store/types'
+import type {CurriedReducer} from '@/common/redux'
 import {createReducer, on} from '@/common/redux'
-import {guid} from '@/common/side-effects'
+import {guid} from '@/common/utils'
 
-type R<A> = (arg: A) => (state: Order[]) => Order[]
+type R<T extends ActionTypes> = CurriedReducer<T, Order[]>
 
 const initialState: Order[] = []
 
-const placeOrder: R<Order> = order => orders => [
+const placeOrder: R<'ORDER_PLACED'> = order => orders => [
   {...order, id: guid()},
   ...orders,
 ]
 
-const removeOrder: R<string> = orderId => list => (
+const removeOrder: R<'ORDER_REMOVED'> = orderId => list => (
   list.filter(order => order.id !== orderId)
 )
 

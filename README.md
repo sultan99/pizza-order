@@ -7,6 +7,8 @@
 
 <br/>
 
+📖 If you liked the approach, you can read more about it in the article [Simplified Redux](https://dev.to/sultan99/simplified-redux-fp).
+
 ## Getting started
 Don't worry be magic 🧙‍
 

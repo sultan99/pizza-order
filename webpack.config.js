@@ -3,10 +3,12 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const rootPath = dir => path.resolve(__dirname, dir)
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: isDev ? 'inline-source-map' : false,
   entry: './src/index.tsx',
   output: {
     path: rootPath('./dist'),
@@ -36,7 +38,14 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {publicPath: rootPath('public/css')}
           },
-          'css-loader?modules=local',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[hash:base64:3]',
+              },
+            },
+          },
           'sass-loader',
         ],
       },
@@ -66,6 +75,9 @@ module.exports = {
         target: 'https://core-graphql.dev.waldo.photos',
       },
     ],
+  },
+  optimization: {
+    mergeDuplicateChunks: true,
   },
   plugins: [
     new MiniCssExtractPlugin(),

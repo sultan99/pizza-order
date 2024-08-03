@@ -1,16 +1,17 @@
+import type {ChangeEvent} from 'react'
 import Checkbox, {CheckboxGroup} from '@/components/checkbox'
 import {Caption} from './styles.scss'
-import {compose, get} from '@/common/fp-fns'
 import {useAction, useStore} from '@/common/redux'
+
+type CheckboxEvent = ChangeEvent<HTMLInputElement>
 
 const PizzaToppings = () => {
   const toppings = useStore('pizza.toppings')
   const addTopping = useAction('TOPPING_ADDED')
 
-  const handleChange = compose(
-    addTopping,
-    get('target.value'),
-  )
+  const handleChange = (event: CheckboxEvent) => {
+    addTopping(event.target.value)
+  }
 
   return (
     <section>
@@ -21,9 +22,9 @@ const PizzaToppings = () => {
             key={key}
             checked={topping.selected}
             name='toppings'
-            onChange={handleChange}
             text={topping.name}
             value={topping.name}
+            onChange={handleChange}
           />
         )}
       </CheckboxGroup>

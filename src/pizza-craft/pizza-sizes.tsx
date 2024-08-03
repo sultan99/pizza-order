@@ -1,46 +1,45 @@
-import Radio, {RadioGroup} from '@/components/radio'
+import type {PizzaSize} from '@/store/types'
+import type {RadioButtonChangeEvent} from '@/components/button/radio'
+import RadioButton, {RadioButtonGroup} from '@/components/button/radio'
 import {Caption} from './styles.scss'
-import {compose, get} from '@/common/fp-fns'
 import {useAction, useStore} from '@/common/redux'
+
+type RadioButtonEvent = RadioButtonChangeEvent<PizzaSize>
 
 const PizzaSizes = () => {
   const pizzaSize = useStore('pizza.size')
   const setPizzaSize = useAction('PIZZA_SIZE_CHANGED')
 
-  const handleChange = compose(
-    setPizzaSize,
-    get('target.value'),
-  )
+  const handleChange = (event: RadioButtonEvent) => {
+    setPizzaSize(event.target.value)
+  }
 
   return (
     <section>
       <Caption>SIZES</Caption>
-      <RadioGroup>
-        <Radio
+      <RadioButtonGroup>
+        <RadioButton
           checked={pizzaSize === 'SMALL'}
           name='size'
-          onChange={handleChange}
           subtext='320g'
-          text='SMALL'
           value='SMALL'
+          onChange={handleChange}
         />
-        <Radio
+        <RadioButton
           checked={pizzaSize === 'MEDIUM'}
           name='size'
-          onChange={handleChange}
           subtext='530g'
-          text='MEDIUM'
           value='MEDIUM'
+          onChange={handleChange}
         />
-        <Radio
+        <RadioButton
           checked={pizzaSize === 'LARGE'}
           name='size'
-          onChange={handleChange}
           subtext='860g'
-          text='LARGE'
           value='LARGE'
+          onChange={handleChange}
         />
-      </RadioGroup>
+      </RadioButtonGroup>
     </section>
   )
 }
