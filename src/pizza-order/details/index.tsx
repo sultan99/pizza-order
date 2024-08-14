@@ -1,7 +1,6 @@
 import Button from '@/components/button'
 import {Badge, Section} from './styles.scss'
-import {Price} from '@/components/misc'
-import {Text, Title} from '@/components/misc'
+import {Price, Text, Title} from '@/components/misc'
 import {useAction, useStore} from '@/common/redux'
 
 const OrderDetails = () => {
