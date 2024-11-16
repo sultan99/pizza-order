@@ -42,7 +42,11 @@ const reshape: Reshape = compose(
   get('data.pizzaSizeByName'),
 )
 
+const cache = {} as Record<string, Partial<PizzaState>>
+
 export const fetchData = (query: string) => {
+  if (cache[query]) return Promise.resolve(cache[query])
+
   const opts = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -51,6 +55,7 @@ export const fetchData = (query: string) => {
   return fetch(API_URL, opts)
     .then<RawData>(res => res.json())
     .then(reshape)
+    .then(data => (cache[query] = data))
 }
 
 const fetchPizza: R<PizzaSize> = ({dispatch}) => size => (
